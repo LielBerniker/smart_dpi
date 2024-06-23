@@ -14,7 +14,7 @@
       "relevant-types": ["gateways"],
       "ui-element": {
         "type": "tab",
-        "caption": "Interfaces",
+        "caption": "Smart-Dpi",
         "tooltip": "Display device interfaces",
         "action": {
           "details-level": "full",

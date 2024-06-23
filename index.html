@@ -16,12 +16,32 @@
         <th>Comments</th>
       </table>
     </div> -->
-    <div class="toggle-container">
-      <label class="switch">
-        <input type="checkbox" id="toggleSwitch">
-        <span class="slider round"></span>
+    <div class="container">
+      <h1>Toggle and Input Example</h1>
+      
+      <label>
+          Enable/Disable:
+          <div class="toggle">
+              <input type="checkbox" id="toggleEnableDisable">
+              <span class="slider"></span>
+          </div>
       </label>
-      <span id="toggleText">Off</span>
-    </div>
+
+      <label>
+          Action Mode (Monitor/Prevent):
+          <div class="toggle">
+              <input type="checkbox" id="toggleAction">
+              <span class="slider"></span>
+          </div>
+      </label>
+
+      <label for="threshold">Threshold (%):</label>
+      <input type="number" id="threshold" min="0" max="100" placeholder="Enter percentage">
+
+      <label for="threshold">Threshold (%):</label>
+      <input type="number" id="threshold" min="1" max="100" placeholder="Enter percentage">
+
+      <button id="saveButton">Submit</button>
+  </div>
   </body>
 </html>
