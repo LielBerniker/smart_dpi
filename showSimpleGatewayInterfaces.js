@@ -210,6 +210,29 @@ function onContext(obj) {
   }
 }
 
+function initParameters() {
+  removeLoader();
+
+  const toggleSwitch = document.getElementById('toggleSwitch');
+
+  // Get the span element where the toggle text is displayed
+  const toggleText = document.getElementById('toggleText');
+  
+  // Add event listener to the toggle switch
+  toggleSwitch.addEventListener('change', function() {
+    if (this.checked) {
+      toggleText.textContent = 'On';
+      // Perform actions when toggle is ON
+      // For example, enable features, start monitoring, etc.
+    } else {
+      toggleText.textContent = 'Off';
+      // Perform actions when toggle is OFF
+      // For example, disable features, stop monitoring, etc.
+    }
+  });
+}
+
+
 /*
  * add loader text
  */
@@ -235,5 +258,7 @@ function removeLoader() {
 function showContext() {
   addLoader();
   // send API request
-  smxProxy.sendRequest("get-context", null, "onContext");
+  // smxProxy.sendRequest("get-context", null, "onContext");
+
+  initParameters();
 }

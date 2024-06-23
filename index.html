@@ -8,13 +8,20 @@
   <body onload="showContext()">
     <script src="colors.js"></script>
     <script src="showSimpleGatewayInterfaces.js"></script>
-    <div id="scrollTable">
+    <!-- <div id="scrollTable">
       <table readonly="readonly" id="interfacesTable">
         <th>Name</th>
         <th>Topology</th>
         <th>IP</th>
         <th>Comments</th>
       </table>
+    </div> -->
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" id="toggleSwitch">
+        <span class="slider round"></span>
+      </label>
+      <span id="toggleText">Off</span>
     </div>
   </body>
 </html>
