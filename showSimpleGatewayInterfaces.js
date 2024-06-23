@@ -221,11 +221,11 @@ function initParameters() {
   // Add event listener to the toggle switch
   toggleSwitch.addEventListener('change', function() {
     if (this.checked) {
-      toggleText.textContent = 'On';
+      toggleText.textContent = 'Enabled';
       // Perform actions when toggle is ON
       // For example, enable features, start monitoring, etc.
     } else {
-      toggleText.textContent = 'Off';
+      toggleText.textContent = 'Disabled';
       // Perform actions when toggle is OFF
       // For example, disable features, stop monitoring, etc.
     }
