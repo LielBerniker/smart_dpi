@@ -16,16 +16,23 @@ const interfaceIcon =
         const toggleAction = document.getElementById("toggleAction");
         const labelAction = document.getElementById("labelAction");
 
-        // Toggle for Enable/Disable
         toggleEnableDisable.addEventListener("change", function() {
-            labelEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
-        });
+          labelEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
+      });
+  
+      labelEnableDisable.addEventListener("click", function() {
+          toggleEnableDisable.checked = !toggleEnableDisable.checked;
+          labelEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
+      });
 
-        // Toggle for Monitor/Prevent
         toggleAction.addEventListener("change", function() {
-            labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
-        });
-
+          labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
+      });
+  
+      labelAction.addEventListener("click", function() {
+          toggleAction.checked = !toggleAction.checked;
+          labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
+      });
         const thresholdInput = document.getElementById('threshold');
 
         // Real-time validation for threshold input
