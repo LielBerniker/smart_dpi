@@ -7,11 +7,10 @@ const interfaceIcon =
 
   function onContext(obj) {
     removeLoader()
-    alert(obj);
-    initParameters()
+    initParameters(obj)
   }
 
-  function initParameters() {
+  function initParameters(obj) {
 
     const toggleEnableDisable = document.getElementById("toggleEnableDisable");
     const stateEnableDisable = document.getElementById("stateEnableDisable");
@@ -50,7 +49,22 @@ const interfaceIcon =
           alert('Please enter a valid threshold percentage between 1 and 100.');
           return;
       }
-  
+
+      // Initialize an empty array to store types
+      var typesArray = [];
+
+      // Iterate over each object in the array
+      for (var i = 0; i < obj.event.objects.length; i++) {
+          // Extract the type of the current object
+          var type = obj.event.objects[i]["type"];
+          // Push the type into the typesArray
+          typesArray.push(type);
+      }
+
+      // Join the types into a single string, separated by commas
+      var typesString = typesArray.join(', ');
+
+      alert(typesString);
       // Display the collected data
       console.log({
           enabled: isEnabled,
@@ -58,7 +72,7 @@ const interfaceIcon =
           threshold: threshold
       });
   
-      alert('Data saved!');
+      // alert('Data saved!');
     });
 
 }
