@@ -7,7 +7,7 @@ const interfaceIcon =
 
   function onContext(obj) {
     removeLoader()
-    console.log(obj)
+    alert(obj);
     initParameters()
   }
 
