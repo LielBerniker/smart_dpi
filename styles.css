@@ -19,8 +19,9 @@
 /* Base style for the toggle switch */
 .toggle {
   position: relative;
-  width: 60px;
+  width: 80px; /* Increased width for text space */
   height: 34px;
+  display: inline-block;
 }
 
 /* Hide the default checkbox */
@@ -39,14 +40,17 @@
   background-color: #ccc;
   transition: .4s;
   border-radius: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-/* Before the slider (for text) */
-.slider:before {
-  position: absolute;
-  content: "Disabled";
-  left: 10px;
-  bottom: 10px;
+/* Styling for the toggle label */
+.toggle-label {
+  display: inline-block;
   transition: .4s;
 }
 
@@ -55,11 +59,9 @@ input:checked + .slider {
   background-color: #2196F3;
 }
 
-/* Move the text to the left when checked */
-input:checked + .slider:before {
-  content: "Enabled";
-  left: 10px;
-  transform: translateX(26px);
+/* Move the label position when checked */
+input:checked + .slider .toggle-label {
+  transform: translateX(-20px);
 }
 
 /* Rounded slider */
@@ -67,17 +69,19 @@ input:checked + .slider:before {
   border-radius: 34px;
 }
 
-/* Toggle text label */
-.toggle-label {
-  margin-left: 10px;
-  font-weight: bold;
+/* Specific styles for the text inside the slider */
+#sliderEnableDisable .toggle-label {
+  content: "Disabled";
 }
 
-/* Prevent/Monitor toggle specific styles */
-#toggleAction + .slider:before {
+#toggleEnableDisable:checked + #sliderEnableDisable .toggle-label {
+  content: "Enabled";
+}
+
+#sliderAction .toggle-label {
   content: "Monitor";
 }
 
-#toggleAction:checked + .slider:before {
+#toggleAction:checked + #sliderAction .toggle-label {
   content: "Prevent";
 }

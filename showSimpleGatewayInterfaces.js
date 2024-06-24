@@ -215,10 +215,10 @@ function initParameters() {
 
   document.addEventListener("DOMContentLoaded", function() {
     const toggleEnableDisable = document.getElementById("toggleEnableDisable");
-    const labelEnableDisable = document.getElementById("labelEnableDisable");
+    const labelEnableDisable = document.getElementById("sliderEnableDisable").querySelector(".toggle-label");
     
     const toggleAction = document.getElementById("toggleAction");
-    const labelAction = document.getElementById("labelAction");
+    const labelAction = document.getElementById("sliderAction").querySelector(".toggle-label");
 
     // Toggle for Enable/Disable
     toggleEnableDisable.addEventListener("change", function() {
@@ -238,26 +238,6 @@ function initParameters() {
         }
     });
 });
-
-    document.getElementById('saveButton').addEventListener('click', function () {
-      const isEnabled = document.getElementById('toggleEnableDisable').checked;
-      const actionMode = document.getElementById('toggleAction').checked ? 'Prevent' : 'Monitor';
-      const threshold = document.getElementById('threshold').value;
-
-      if (threshold < 1 || threshold > 100) {
-          alert('Please enter a valid threshold percentage between 1 and 100.');
-          return;
-      }
-
-      // Display the collected data
-      console.log({
-          enabled: isEnabled,
-          actionMode: actionMode,
-          threshold: threshold
-      });
-
-      alert('Data saved!');
-  });
 
 }
 
