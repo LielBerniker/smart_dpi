@@ -1,4 +1,4 @@
-# Show Gateways Interfaces
+# Smart Dpi Configuration
 
 
 Show interfaces in a dedicated tab under the gateway’s view.
