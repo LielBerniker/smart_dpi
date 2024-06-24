@@ -10,17 +10,20 @@
           margin: 20px 0;
       }
 
+      /* Toggle container style */
       .toggle {
           position: relative;
           display: inline-block;
-          width: 60px;
+          width: 120px; /* Increased width to fit text */
           height: 34px;
       }
 
+      /* Hide default checkbox */
       .toggle input {
           display: none;
       }
 
+      /* Toggle slider style */
       .slider {
           position: absolute;
           cursor: pointer;
@@ -31,31 +34,64 @@
           background-color: #ccc;
           transition: 0.4s;
           border-radius: 34px;
+          overflow: hidden; /* To hide overflow text */
       }
 
       .slider:before {
           position: absolute;
-          content: "";
-          height: 26px;
-          width: 26px;
-          left: 4px;
-          bottom: 4px;
-          background-color: white;
+          content: "Disabled";
+          height: 34px;
+          width: 60px; /* Half of the toggle width */
+          left: 0;
+          bottom: 0;
+          background-color: #ccc;
+          text-align: center;
+          line-height: 34px;
           transition: 0.4s;
-          border-radius: 50%;
+          border-radius: 34px 0 0 34px;
       }
 
+      .slider:after {
+          position: absolute;
+          content: "Enabled";
+          height: 34px;
+          width: 60px; /* Half of the toggle width */
+          right: 0;
+          bottom: 0;
+          background-color: #4CAF50;
+          text-align: center;
+          line-height: 34px;
+          color: white;
+          transition: 0.4s;
+          border-radius: 0 34px 34px 0;
+          transform: translateX(-60px); /* Start off-screen */
+      }
+
+      /* Style the slider when checked */
       input:checked + .slider {
-          background-color: #2196F3;
+          background-color: #4CAF50;
       }
 
+      /* Move the text and change the background when checked */
       input:checked + .slider:before {
-          transform: translateX(26px);
+          transform: translateX(60px); /* Move to the right */
+          background-color: #4CAF50;
+          color: white;
       }
 
-      .label-text {
-          margin-top: 10px;
-          font-weight: bold;
+      input:checked + .slider:after {
+          transform: translateX(0); /* Bring into view */
+          background-color: #ccc;
+          color: black;
+      }
+
+      /* Text inside the toggle for action mode */
+      .action-slider:before {
+          content: "Monitor";
+      }
+
+      .action-slider:after {
+          content: "Prevent";
       }
 
       /* Style for the button */
