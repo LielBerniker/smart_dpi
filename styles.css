@@ -1,4 +1,3 @@
-/* Container for the whole form */
 .container {
   display: flex;
   flex-direction: column;
@@ -9,27 +8,23 @@
   margin-top: 50px;
 }
 
-/* Styling the toggle wrapper */
 .toggle-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* Base style for the toggle switch */
 .toggle {
   position: relative;
-  width: 80px; /* Increased width for text space */
+  width: 80px;
   height: 34px;
   display: inline-block;
 }
 
-/* Hide the default checkbox */
 .toggle input {
   display: none;
 }
 
-/* Styling for the slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -40,48 +35,38 @@
   background-color: #ccc;
   transition: .4s;
   border-radius: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+}
+
+.toggle-label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
   font-size: 12px;
   font-weight: bold;
-}
-
-/* Styling for the toggle label */
-.toggle-label {
-  display: inline-block;
   transition: .4s;
+  pointer-events: none; /* Prevents interaction with the label */
 }
 
-/* Checked state */
-input:checked + .slider {
+.toggle input:checked + .slider {
   background-color: #2196F3;
 }
 
-/* Move the label position when checked */
-input:checked + .slider .toggle-label {
-  transform: translateX(-20px);
+#toggleEnableDisable:checked + .slider {
+  background-color: #2196F3;
 }
 
-/* Rounded slider */
-.slider {
-  border-radius: 34px;
-}
-
-/* Specific styles for the text inside the slider */
-#sliderEnableDisable .toggle-label {
-  content: "Disabled";
-}
-
-#toggleEnableDisable:checked + #sliderEnableDisable .toggle-label {
+#toggleEnableDisable:checked + .slider + .toggle-label {
   content: "Enabled";
+  left: 38px;
 }
 
-#sliderAction .toggle-label {
-  content: "Monitor";
+#toggleAction:checked + .slider {
+  background-color: #2196F3;
 }
 
-#toggleAction:checked + #sliderAction .toggle-label {
+#toggleAction:checked + .slider + .toggle-label {
   content: "Prevent";
+  left: 38px;
 }
