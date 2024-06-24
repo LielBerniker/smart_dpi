@@ -213,22 +213,31 @@ function onContext(obj) {
 function initParameters() {
   removeLoader();
 
-  const toggleSwitch = document.getElementById('toggleSwitch');
+  document.addEventListener("DOMContentLoaded", function() {
+    const toggleEnableDisable = document.getElementById("toggleEnableDisable");
+    const labelEnableDisable = document.getElementById("labelEnableDisable");
+    
+    const toggleAction = document.getElementById("toggleAction");
+    const labelAction = document.getElementById("labelAction");
 
-  // Get the span element where the toggle text is displayed
-  const toggleText = document.getElementById('toggleText');
-  
-  // Add event listener to the toggle switch
-  toggleSwitch.addEventListener('change', function() {
-    if (this.checked) {
-      toggleText.textContent = 'Enabled';
-      // Perform actions when toggle is ON
-      // For example, enable features, start monitoring, etc.
-    } else {
-      toggleText.textContent = 'Disabled';
-      // Perform actions when toggle is OFF
-      // For example, disable features, stop monitoring, etc.
-    }
+    // Toggle for Enable/Disable
+    toggleEnableDisable.addEventListener("change", function() {
+        if (toggleEnableDisable.checked) {
+            labelEnableDisable.textContent = "Enabled";
+        } else {
+            labelEnableDisable.textContent = "Disabled";
+        }
+    });
+
+    // Toggle for Monitor/Prevent
+    toggleAction.addEventListener("change", function() {
+        if (toggleAction.checked) {
+            labelAction.textContent = "Prevent";
+        } else {
+            labelAction.textContent = "Monitor";
+        }
+    });
+});
 
     document.getElementById('saveButton').addEventListener('click', function () {
       const isEnabled = document.getElementById('toggleEnableDisable').checked;
@@ -249,7 +258,7 @@ function initParameters() {
 
       alert('Data saved!');
   });
-  });
+
 }
 
 

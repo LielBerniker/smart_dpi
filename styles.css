@@ -1,110 +1,83 @@
-        /* Basic styling for the container and labels */
-        .container {
-          max-width: 400px;
-          margin: 50px auto;
-          text-align: center;
-      }
+/* Container for the whole form */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  margin-top: 50px;
+}
 
-      label {
-          display: block;
-          margin: 20px 0;
-      }
+/* Styling the toggle wrapper */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-      /* Toggle container style */
-      .toggle {
-          position: relative;
-          display: inline-block;
-          width: 120px; /* Increased width to fit text */
-          height: 34px;
-      }
+/* Base style for the toggle switch */
+.toggle {
+  position: relative;
+  width: 60px;
+  height: 34px;
+}
 
-      /* Hide default checkbox */
-      .toggle input {
-          display: none;
-      }
+/* Hide the default checkbox */
+.toggle input {
+  display: none;
+}
 
-      /* Toggle slider style */
-      .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: #ccc;
-          transition: 0.4s;
-          border-radius: 34px;
-          overflow: hidden; /* To hide overflow text */
-      }
+/* Styling for the slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
 
-      .slider:before {
-          position: absolute;
-          content: "Disabled";
-          height: 34px;
-          width: 60px; /* Half of the toggle width */
-          left: 0;
-          bottom: 0;
-          background-color: #ccc;
-          text-align: center;
-          line-height: 34px;
-          transition: 0.4s;
-          border-radius: 34px 0 0 34px;
-      }
+/* Before the slider (for text) */
+.slider:before {
+  position: absolute;
+  content: "Disabled";
+  left: 10px;
+  bottom: 10px;
+  transition: .4s;
+}
 
-      .slider:after {
-          position: absolute;
-          content: "Enabled";
-          height: 34px;
-          width: 60px; /* Half of the toggle width */
-          right: 0;
-          bottom: 0;
-          background-color: #4CAF50;
-          text-align: center;
-          line-height: 34px;
-          color: white;
-          transition: 0.4s;
-          border-radius: 0 34px 34px 0;
-          transform: translateX(-60px); /* Start off-screen */
-      }
+/* Checked state */
+input:checked + .slider {
+  background-color: #2196F3;
+}
 
-      /* Style the slider when checked */
-      input:checked + .slider {
-          background-color: #4CAF50;
-      }
+/* Move the text to the left when checked */
+input:checked + .slider:before {
+  content: "Enabled";
+  left: 10px;
+  transform: translateX(26px);
+}
 
-      /* Move the text and change the background when checked */
-      input:checked + .slider:before {
-          transform: translateX(60px); /* Move to the right */
-          background-color: #4CAF50;
-          color: white;
-      }
+/* Rounded slider */
+.slider {
+  border-radius: 34px;
+}
 
-      input:checked + .slider:after {
-          transform: translateX(0); /* Bring into view */
-          background-color: #ccc;
-          color: black;
-      }
+/* Toggle text label */
+.toggle-label {
+  margin-left: 10px;
+  font-weight: bold;
+}
 
-      /* Text inside the toggle for action mode */
-      .action-slider:before {
-          content: "Monitor";
-      }
+/* Prevent/Monitor toggle specific styles */
+#toggleAction + .slider:before {
+  content: "Monitor";
+}
 
-      .action-slider:after {
-          content: "Prevent";
-      }
-
-      /* Style for the button */
-      button {
-          padding: 10px 20px;
-          font-size: 16px;
-          cursor: pointer;
-          margin-top: 20px;
-      }
-
-      /* Style for the threshold input */
-      input[type="number"] {
-          padding: 10px;
-          width: 100px;
-          margin: 10px 0;
-      }
+#toggleAction:checked + .slider:before {
+  content: "Prevent";
+}

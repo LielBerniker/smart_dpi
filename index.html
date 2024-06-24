@@ -17,35 +17,27 @@
       </table>
     </div> -->
     <div class="container">
-      
-      <label>
-          Enable/Disable:
+      <div class="toggle-wrapper">
+          <label for="toggleEnableDisable">Enable/Disable:</label>
           <div class="toggle">
               <input type="checkbox" id="toggleEnableDisable">
-              <span class="slider"></span>
+              <span class="slider" id="sliderEnableDisable"></span>
+              <span class="toggle-label" id="labelEnableDisable">Disabled</span>
           </div>
-      </label>
-
-      <label>
-          Action Mode (Monitor/Prevent):
+      </div>
+  
+      <div class="toggle-wrapper">
+          <label for="toggleAction">Action Mode (Monitor/Prevent):</label>
           <div class="toggle">
               <input type="checkbox" id="toggleAction">
-              <span class="slider"></span>
+              <span class="slider" id="sliderAction"></span>
+              <span class="toggle-label" id="labelAction">Monitor</span>
           </div>
-      </label>
-
-
-      <label>
-        Threshold (%):
-        <div class="toggle">
-            <input type="checkbox" id="toggleAction">
-            <span class="slider"></span>
-        </div>
-    </label>
-
+      </div>
+  
       <label for="threshold">Threshold (%):</label>
       <input type="number" id="threshold" min="0" max="100" placeholder="Enter percentage">
-
+  
       <button id="saveButton">Submit</button>
   </div>
   </body>
