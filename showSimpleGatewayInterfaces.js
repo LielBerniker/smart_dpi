@@ -7,6 +7,8 @@ const interfaceIcon =
 
 
   function initParameters() {
+
+    removeLoader()
     document.addEventListener("DOMContentLoaded", function() {
         const toggleEnableDisable = document.getElementById("toggleEnableDisable");
         const labelEnableDisable = document.getElementById("labelEnableDisable");
