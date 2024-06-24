@@ -1,28 +1,28 @@
+/* Styles for the container and labels */
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 300px;
-  margin: auto;
-  font-family: Arial, sans-serif;
-  margin-top: 50px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.toggle-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
+/* Styles for the toggle switch */
 .toggle {
   position: relative;
-  width: 80px;
-  height: 34px;
   display: inline-block;
+  width: 60px;
+  height: 34px;
 }
 
 .toggle input {
-  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
@@ -37,36 +37,35 @@
   border-radius: 34px;
 }
 
-.toggle-label {
+.slider:before {
   position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
   transition: .4s;
-  pointer-events: none; /* Prevents interaction with the label */
+  border-radius: 50%;
 }
 
-.toggle input:checked + .slider {
+input:checked + .slider {
   background-color: #2196F3;
 }
 
-#toggleEnableDisable:checked + .slider {
-  background-color: #2196F3;
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
 
-#toggleEnableDisable:checked + .slider + .toggle-label {
-  content: "Enabled";
-  left: 38px;
+/* Additional styles for the labels */
+#labelEnableDisable,
+#labelAction {
+  font-size: 16px;
+  color: #333;
 }
 
-#toggleAction:checked + .slider {
-  background-color: #2196F3;
-}
-
-#toggleAction:checked + .slider + .toggle-label {
-  content: "Prevent";
-  left: 38px;
+#labelEnableDisable .toggle-label,
+#labelAction .toggle-label {
+  margin-left: 10px;
+  color: #555;
 }
