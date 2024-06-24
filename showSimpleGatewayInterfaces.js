@@ -10,29 +10,45 @@ const interfaceIcon =
 
     removeLoader()
 
-        const toggleEnableDisable = document.getElementById("toggleEnableDisable");
-        const labelEnableDisable = document.getElementById("labelEnableDisable");
-        
-        const toggleAction = document.getElementById("toggleAction");
-        const labelAction = document.getElementById("labelAction");
+    function updateToggleLabel(toggle, labelElement) {
+      labelElement.textContent = toggle.checked ? "Enabled" : "Disabled";
+  }
 
-        toggleEnableDisable.addEventListener("change", function() {
-          labelEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
-      });
-  
-      labelEnableDisable.addEventListener("click", function() {
-          toggleEnableDisable.checked = !toggleEnableDisable.checked;
-          labelEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
-      });
+  // Toggle for Enable/Disable
+  const toggleEnableDisable = document.getElementById("toggleEnableDisable");
+  const labelEnableDisable = document.getElementById("labelEnableDisable");
 
-        toggleAction.addEventListener("change", function() {
-          labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
-      });
-  
-      labelAction.addEventListener("click", function() {
-          toggleAction.checked = !toggleAction.checked;
-          labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
-      });
+  toggleEnableDisable.addEventListener("change", function() {
+      updateToggleLabel(this, labelEnableDisable);
+  });
+
+  // When clicking directly on the toggle input
+  toggleEnableDisable.addEventListener("click", function(e) {
+      // Prevent the default action to avoid double toggle (because change event will also trigger)
+      e.preventDefault();
+      // Toggle the checked state
+      this.checked = !this.checked;
+      // Update the label text
+      updateToggleLabel(this, labelEnableDisable);
+  });
+
+  // Toggle for Monitor/Prevent
+  const toggleAction = document.getElementById("toggleAction");
+  const labelAction = document.getElementById("labelAction");
+
+  toggleAction.addEventListener("change", function() {
+      labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
+  });
+
+  // When clicking directly on the toggle input
+  toggleAction.addEventListener("click", function(e) {
+      // Prevent the default action to avoid double toggle (because change event will also trigger)
+      e.preventDefault();
+      // Toggle the checked state
+      this.checked = !this.checked;
+      // Update the label text
+      labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
+  });
         const thresholdInput = document.getElementById('threshold');
 
         // Real-time validation for threshold input
