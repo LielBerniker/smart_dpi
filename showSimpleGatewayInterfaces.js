@@ -7,55 +7,53 @@ const interfaceIcon =
 
 
   function initParameters() {
-    // Initialize parameters and add event listeners
-    const toggleEnableDisable = document.getElementById("toggleEnableDisable");
-    const labelEnableDisable = document.getElementById("sliderEnableDisable").querySelector(".toggle-label");
-  
-    const toggleAction = document.getElementById("toggleAction");
-    const labelAction = document.getElementById("sliderAction").querySelector(".toggle-label");
-  
-    const thresholdInput = document.getElementById('threshold');
-  
-    // Toggle for Enable/Disable
-    toggleEnableDisable.addEventListener("change", function() {
-        labelEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleEnableDisable = document.getElementById("toggleEnableDisable");
+        const labelEnableDisable = document.getElementById("labelEnableDisable");
+        
+        const toggleAction = document.getElementById("toggleAction");
+        const labelAction = document.getElementById("labelAction");
+
+        // Toggle for Enable/Disable
+        toggleEnableDisable.addEventListener("change", function() {
+            labelEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
+        });
+
+        // Toggle for Monitor/Prevent
+        toggleAction.addEventListener("change", function() {
+            labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
+        });
+
+        const thresholdInput = document.getElementById('threshold');
+
+        // Real-time validation for threshold input
+        thresholdInput.addEventListener('input', function () {
+            const thresholdValue = thresholdInput.value;
+            if (thresholdValue < 1 || thresholdValue > 100) {
+                alert('Please enter a valid threshold percentage between 1 and 100.');
+            }
+        });
+
+        document.getElementById('saveButton').addEventListener('click', function () {
+            const isEnabled = toggleEnableDisable.checked;
+            const actionMode = toggleAction.checked ? 'Prevent' : 'Monitor';
+            const threshold = thresholdInput.value;
+
+            if (threshold < 1 || threshold > 100) {
+                alert('Please enter a valid threshold percentage between 1 and 100.');
+                return;
+            }
+
+            console.log({
+                enabled: isEnabled,
+                actionMode: actionMode,
+                threshold: threshold
+            });
+
+            alert('Data saved!');
+        });
     });
-  
-    // Toggle for Monitor/Prevent
-    toggleAction.addEventListener("change", function() {
-        labelAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
-    });
-  
-    // Real-time validation for threshold input
-    thresholdInput.addEventListener('input', function () {
-        const thresholdValue = thresholdInput.value;
-        if (thresholdValue < 1 || thresholdValue > 100) {
-            alert('Please enter a valid threshold percentage between 1 and 100.');
-        }
-    });
-  
-    // Validate and submit
-    document.getElementById('saveButton').addEventListener('click', function () {
-      const isEnabled = toggleEnableDisable.checked;
-      const actionMode = toggleAction.checked ? 'Prevent' : 'Monitor';
-      const threshold = thresholdInput.value;
-  
-      // Additional check before saving data
-      if (threshold < 1 || threshold > 100) {
-          alert('Please enter a valid threshold percentage between 1 and 100.');
-          return;
-      }
-  
-      // Display the collected data
-      console.log({
-          enabled: isEnabled,
-          actionMode: actionMode,
-          threshold: threshold
-      });
-  
-      alert('Data saved!');
-    });
-  }
+}
 
 
 /*
