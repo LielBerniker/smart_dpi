@@ -1,95 +1,74 @@
-body {
-  font-family: "Segoe UI", "Open Sans", tahoma, arial, verdana, sans-serif;
-}
+        /* Basic styling for the container and labels */
+        .container {
+          max-width: 400px;
+          margin: 50px auto;
+          text-align: center;
+      }
 
-#scrollTable {
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 250px;
-}
+      label {
+          display: block;
+          margin: 20px 0;
+      }
 
-#interfacesTable {
-  border-collapse: collapse;
-  width: 100%;
-  visibility: hidden;
-  border: 1px solid #e0e4e8;
-}
+      .toggle {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+      }
 
-#interfacesTable td,
-#interfacesTable th {
-  text-align: left;
-  height: 23px;
-  padding-left: 10px;
-  font-family: "Segoe UI";
-  max-width: 500px;
-}
+      .toggle input {
+          display: none;
+      }
 
-#interfacesTable td {
-  font-size: 11px;
-  font-weight: normal;
-  color: #333333;
-}
+      .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          transition: 0.4s;
+          border-radius: 34px;
+      }
 
-#interfacesTable th {
-  border-right: 1px solid #425673;
-  background-color: #2e3f58;
-  font-size: 12px;
-  font-weight: bold;
-  color: #e8f1ff;
-}
+      .slider:before {
+          position: absolute;
+          content: "";
+          height: 26px;
+          width: 26px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          transition: 0.4s;
+          border-radius: 50%;
+      }
 
-#interfacesTable tr:nth-child(odd) {
-  background-color: #f6f7f9;
-}
+      input:checked + .slider {
+          background-color: #2196F3;
+      }
 
-#interfacesTable tr:hover {
-  background-color: #dedfe0;
-}
+      input:checked + .slider:before {
+          transform: translateX(26px);
+      }
 
-.might-overflow {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
+      .label-text {
+          margin-top: 10px;
+          font-weight: bold;
+      }
 
-.column10 {
-  width: 10%;
-}
+      /* Style for the button */
+      button {
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          margin-top: 20px;
+      }
 
-.column15 {
-  width: 13%;
-}
-
-.name {
-  padding-left: 10px;
-  display: inline-block;
-}
-
-.icon {
-  width: 14px;
-  height: 14px;
-  display: inline-block;
-}
-
-h3 {
-  font-weight: normal;
-  font-size: 20px;
-  text-align: center;
-  color: #2e3f58;
-}
-
-h4 {
-  font-weight: normal;
-  font-size: 18px;
-  text-align: center;
-  color: #2e3f58;
-}
-
-p {
-  font-family: "Segoe UI";
-  font-size: 18px;
-  font-style: italic;
-  color: #a7a9ac;
-  text-align: center;
-  vertical-align: middle;
-}
+      /* Style for the threshold input */
+      input[type="number"] {
+          padding: 10px;
+          width: 100px;
+          margin: 10px 0;
+      }
