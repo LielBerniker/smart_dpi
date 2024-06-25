@@ -19,9 +19,19 @@ const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
 
   function onCommit(value) {
     removeLoader()
-    var result = JSON.stringify(value);
-    //do something with the JSON formatted context
-    alert(result[0].errors);
+    if (Array.isArray(value) && value.length > 0) {
+      // Accessing the first object in the array and its 'errors' property
+      var firstItem = value[0];
+      
+      if (firstItem && firstItem.errors) {
+        // Accessing the 'errors' field of the first object
+        alert(firstItem.errors);
+      } else {
+        alert("No errors field in the first item.");
+      }
+    } else {
+      alert("The input is not an array or the array is empty.");
+    }
   }
 
   function runUpdateConfigOnGW(gatewayInfo) {
