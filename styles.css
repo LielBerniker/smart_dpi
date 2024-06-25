@@ -111,3 +111,7 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+#stateEnableDisable,#stateAction {
+  width: 25px;
+}
