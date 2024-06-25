@@ -22,6 +22,7 @@ const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
     if (Array.isArray(value) && value.length > 0) {
       var firstItem = value[0];
       alert(firstItem);
+    }
   }
 
   function runUpdateConfigOnGW(gatewayInfo) {
