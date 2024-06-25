@@ -50,21 +50,13 @@ const interfaceIcon =
           return;
       }
 
-      // Initialize an empty array to store types
-      var typesArray = [];
-
-      // Iterate over each object in the array
-      for (var i = 0; i < obj.event.objects.length; i++) {
-          // Extract the type of the current object
-          var type = obj.event.objects[i]["type"];
-          // Push the type into the typesArray
-          typesArray.push(type);
-      }
+      var type = obj.event.objects[0]["type"];
+      var name = obj.event.objects[0]["name"];
 
       // Join the types into a single string, separated by commas
-      var typesString = typesArray.join(', ');
+      var infoString = type + ", " + name
 
-      alert(typesString);
+      alert(infoString);
       // Display the collected data
       console.log({
           enabled: isEnabled,
