@@ -21,13 +21,14 @@ const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
     removeLoader()
     var result = JSON.stringify(value);
     //do something with the JSON formatted context
+    alert(result.message);
   }
 
   function runUpdateConfigOnGW(gatewayInfo) {
 
     const updateConfigCli = smartDpiConfig + " " + gatewayInfo.isEnabled + " " + gatewayInfo.actionMode + " " + gatewayInfo.threshold.toString()
     const mgmtCli = `mgmt_cli run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${gatewayInfo.name}" --format json`;
-    alert(mgmtCli);
+
     //request to commit changes
     smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommit");
   }
