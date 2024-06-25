@@ -20,14 +20,16 @@ const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
   function onCommit(value) {
     removeLoader()
     if (Array.isArray(value) && value.length > 0) {
-      // Accessing the first object in the array and its 'errors' property
       var firstItem = value[0];
-      
-      if (firstItem && firstItem.errors) {
-        // Accessing the 'errors' field of the first object
-        alert(firstItem.errors);
+      var my_fields = ""
+      if (firstItem && typeof firstItem === 'object') {
+        Object.entries(firstItem).forEach(([key, val]) => {
+          var currentf = `${key}: ${val}`;
+          my_fields += " " + currentf
+        });
+        alert(my_fields);
       } else {
-        alert("No errors field in the first item.");
+        alert("The first item is not an object.");
       }
     } else {
       alert("The input is not an array or the array is empty.");
