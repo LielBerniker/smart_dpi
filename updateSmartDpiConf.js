@@ -21,19 +21,7 @@ const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
     removeLoader()
     if (Array.isArray(value) && value.length > 0) {
       var firstItem = value[0];
-      var my_fields = ""
-      if (firstItem && typeof firstItem === 'object') {
-        Object.entries(firstItem).forEach(([key, val]) => {
-          var currentf = `${key}: ${val}`;
-          my_fields += " " + currentf
-        });
-        alert(my_fields);
-      } else {
-        alert("The first item is not an object.");
-      }
-    } else {
-      alert("The input is not an array or the array is empty.");
-    }
+      alert(firstItem);
   }
 
   function runUpdateConfigOnGW(gatewayInfo) {
