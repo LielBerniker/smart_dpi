@@ -21,7 +21,7 @@ const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
     removeLoader()
     var result = JSON.stringify(value);
     //do something with the JSON formatted context
-    alert(result.errors);
+    alert(result[0].errors);
   }
 
   function runUpdateConfigOnGW(gatewayInfo) {
