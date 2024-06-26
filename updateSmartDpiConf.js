@@ -62,7 +62,7 @@ async function getCongigurationData(task) {
 }
 
 async function reportUpdateConfig(task) {
-    alert('successfully got gateway configuration information');
+    alert('successfully updated gateway configuration');
 }
 
 function onCommitUpdate(value) {
@@ -166,17 +166,22 @@ function removeLoader() {
 }
 
 
-function onCommitReport(value) {
+async function onCommitReport(value) {
   removeLoader()
   alert('current val is ' + value);
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    if (!isTaskSucceeded(firstItem, 0, getCongigurationData())){
+    try {
+    const isSuccess = await isTaskSucceeded(firstItem, 0, getCongigurationData());
+    if (!isSuccess){
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
       initParameters()
     }
+  } catch (error) {
+    alert('An error occurred while checking the task status.');
+  }
   }
 }
 
