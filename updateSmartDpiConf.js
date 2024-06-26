@@ -26,7 +26,8 @@ function isTaskSucceeded(item, itemNum, callback) {
     if (data.tasks && data.tasks.length > 0) {
       const taskStatus = data.tasks[itemNum].status;
       if (taskStatus === "succeeded") {
-        callback(data.tasks[itemNum])
+        const current_task = data.tasks[itemNum]
+        callback(current_task)
         return true;
       } else {
         alert('Item task status is faliure.');
