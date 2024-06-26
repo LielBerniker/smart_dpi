@@ -14,11 +14,10 @@ const interfaceIcon =
     }
 }
 
-const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
+const smartDpiConfig = "python3 $FWDIR/bin/smart_dpi_config_update.pyc"
 
 
   function onCommit(value) {
-    removeLoader()
     if (Array.isArray(value) && value.length > 0) {
       var firstItem = value[0];
       alert(firstItem);
@@ -76,7 +75,6 @@ const smartDpiConfig = "python3 smart_dpi_config_update.pyc"
 
       var name = obj.event.objects[0]["name"];
 
-      addLoader()
       gatewayInfo = new GatewayConfigInfo(name, isEnabled, actionMode, threshold);
       runUpdateConfigOnGW(gatewayInfo)
       // Display the collected data
