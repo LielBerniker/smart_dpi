@@ -47,10 +47,10 @@ async function isTaskSucceeded(item, itemNum, callback) {
 
 
 async function getCongigurationData(task) {
-  alert('current task is ' + task);
+  alert('current task in get conf is ' + task);
   try {
     // Access status description, contains the current gateway configuration of smart dpi
-      let statusDescription = task.task-details[0].statusDescription;
+      let statusDescription = task["task-details"][0].statusDescription;
       const statusDetails = JSON.parse(statusDescription);
       currentGatewayInfo.isEnabled = statusDetails.enabled;
       currentGatewayInfo.actionMode = statusDetails.state;
