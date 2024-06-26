@@ -30,6 +30,7 @@
     "pre-approved-commands": ["add-host",
                               "set-host",
                               "delete-host",
-                              "delete-group"]
+                              "delete-group",
+                              "run-script"]
   }
 }

@@ -27,9 +27,12 @@ function isTaskSucceeded(item, itemNum, callback) {
       const taskStatus = data.tasks[itemNum].status;
       if (taskStatus === "succeeded") {
         const current_task = data.tasks[itemNum]
-        alert('current task ' + current_task);
-        callback(current_task)
-        return true;
+        alert('current task in check task succeded' + current_task);
+        try {
+          await callback(current_task);
+        } catch (error) {
+          alert('Error in callback:' );
+        }
       } else {
         alert('Item task status is faliure.');
       }
