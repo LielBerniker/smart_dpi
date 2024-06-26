@@ -16,7 +16,7 @@ const interfaceIcon =
 const smartDpiConfigUpdate = "python3 $FWDIR/bin/smart_dpi_config_update.pyc"
 const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
-let currentGatewayInfo = GatewayConfigInfo()
+let currentGatewayInfo = new GatewayConfigInfo()
 
 async function isTaskSucceeded(item, itemNum, callback) {
   try {
