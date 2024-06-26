@@ -18,7 +18,7 @@ const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
 let currentGatewayInfo = GatewayConfigInfo()
 
-function isTaskSucceeded(item, itemNum, callback) {
+async function isTaskSucceeded(item, itemNum, callback) {
   try {
     const data = JSON.parse(item);
   
@@ -46,7 +46,7 @@ function isTaskSucceeded(item, itemNum, callback) {
 }
 
 
-function getCongigurationData(task) {
+async function getCongigurationData(task) {
   alert('current task is ' + task);
   try {
     // Access status description, contains the current gateway configuration of smart dpi
@@ -61,7 +61,7 @@ function getCongigurationData(task) {
   }
 }
 
-function reportUpdateConfig(task) {
+async function reportUpdateConfig(task) {
     alert('successfully got gateway configuration information');
 }
 
