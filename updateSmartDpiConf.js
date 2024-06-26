@@ -26,7 +26,7 @@ function isTaskSucceeded(item, itemNum, callback) {
     if (data.tasks && data.tasks.length > 0) {
       const taskStatus = data.tasks[itemNum].status;
       if (taskStatus === "succeeded") {
-        callback(tasks[itemNum])
+        callback(data.tasks[itemNum])
         return true;
       } else {
         alert('Item task status is faliure.');
@@ -42,6 +42,7 @@ function isTaskSucceeded(item, itemNum, callback) {
 
 
 function getCongigurationData(task) {
+  alert('current task is ' + task);
   try {
     // Access status description, contains the current gateway configuration of smart dpi
       let statusDescription = task.task-details[0].statusDescription;
@@ -60,6 +61,7 @@ function reportUpdateConfig(task) {
 }
 
 function onCommitUpdate(value) {
+  alert('current val in update is ' + value);
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
     if (!isTaskSucceeded(firstItem, 0, reportUpdateConfig())){
@@ -161,6 +163,7 @@ function removeLoader() {
 
 function onCommitReport(value) {
   removeLoader()
+  alert('current val is ' + value);
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
     if (!isTaskSucceeded(firstItem, 0, getCongigurationData())){
@@ -174,6 +177,7 @@ function onCommitReport(value) {
 
 function onContext(obj) {
   gatewayName = obj.event.objects[0]["name"];
+  alert('current name is ' + gatewayName);
   const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${gatewayName}" --format json`;
   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
 }
