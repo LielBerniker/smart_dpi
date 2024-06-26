@@ -66,7 +66,6 @@ async function reportUpdateConfig(task) {
 }
 
 function onCommitUpdate(value) {
-  alert('current val in update is ' + value);
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
     if (!isTaskSucceeded(firstItem, 0, reportUpdateConfig())){
@@ -166,28 +165,21 @@ function removeLoader() {
 }
 
 
-async function onCommitReport(value) {
+function onCommitReport(value) {
   removeLoader()
-  alert('current val is ' + value);
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    try {
-    const isSuccess = await isTaskSucceeded(firstItem, 0, getCongigurationData());
-    if (!isSuccess){
+    if (!isTaskSucceeded(firstItem, 0, getCongigurationData())){
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
       initParameters()
     }
-  } catch (error) {
-    alert('An error occurred while checking the task status.');
-  }
   }
 }
 
 function onContext(obj) {
   gatewayName = obj.event.objects[0]["name"];
-  alert('current name is ' + gatewayName);
   const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${gatewayName}" --format json`;
   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
 }
