@@ -11,6 +11,7 @@ const interfaceIcon =
         this.actionMode = actionMode;
         this.threshold = threshold;
     }
+    
 }
 
 const smartDpiConfigUpdate = "python3 $FWDIR/bin/smart_dpi_config_update.pyc"
@@ -18,7 +19,7 @@ const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
 let currentGatewayInfo = new GatewayConfigInfo()
 
-async function isTaskSucceeded(item, itemNum, callback) {
+async function isTaskSucceeded(item, itemNum) {
   try {
     const data = JSON.parse(item);
   
@@ -26,21 +27,24 @@ async function isTaskSucceeded(item, itemNum, callback) {
     if (data.tasks && data.tasks.length > 0) {
       const taskStatus = data.tasks[itemNum].status;
       let statusDescription = data.tasks[itemNum]["task-details"][0].statusDescription;
-      alert(statusDescription);
+      console.log(statusDescription);
       if (taskStatus === "succeeded") {
         let current_task = data.tasks[itemNum]
-        alert(current_task);
+        console.log(current_task);
         // callback(current_task);
         return true;
       } else {
         alert('Item task status is faliure.');
+        console.log('Item task status is faliure.');
       }
     } else {
       alert('No tasks found in data.');
+      console.log('No tasks found in data.');
     }
   } catch (error) {
     const errorMessage = error.message
     alert("Error parsing JSON (isTaskSucceeded):" + errorMessage);
+    console.log("Error parsing JSON (isTaskSucceeded):" + errorMessage);
   }
   return false;
 }
@@ -56,20 +60,24 @@ async function getCongigurationData(task) {
       currentGatewayInfo.actionMode = statusDetails.state;
       actionMode.threshold = statusDetails.threshold;
       alert('successfully got gateway configuration information');
+      console.log('successfully got gateway configuration information');
   } catch (error) {
     alert("Error parsing JSON(getCongigurationData):" + error);
+    console.log("Error parsing JSON(getCongigurationData):" + error);
   }
 }
 
 async function reportUpdateConfig(task) {
     alert('successfully updated gateway configuration');
+    console.log('successfully updated gateway configuration');
 }
 
 function onCommitUpdate(value) {
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    if (!isTaskSucceeded(firstItem, 0, reportUpdateConfig())){
+    if (!isTaskSucceeded(firstItem, 0)){
       alert('fail to get update Smart Dpi configuration');
+      console.log('fail to get update Smart Dpi configuration');
     }
   }
 }
@@ -169,7 +177,7 @@ function onCommitReport(value) {
   removeLoader()
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    if (!isTaskSucceeded(firstItem, 0, getCongigurationData())){
+    if (!isTaskSucceeded(firstItem, 0)){
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
