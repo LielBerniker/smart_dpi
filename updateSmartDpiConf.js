@@ -58,12 +58,13 @@ function getCongigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       console.log(statusDescription);
-      console.log(statusDescription.enabled)
-      console.log( statusDescription.state)
-      console.log(statusDescription.threshold)
-      window.currentGatewayInfo.isEnabled = statusDescription.enabled;
-      window.currentGatewayInfo.actionMode = statusDescription.state;
-      window.currentGatewayInfo.threshold = statusDescription.threshold;
+      const jsonStatusDescription = JSON.parse(statusDescription);
+      console.log(jsonStatusDescription.enabled)
+      console.log(jsonStatusDescription.state)
+      console.log(jsonStatusDescription.threshold)
+      window.currentGatewayInfo.isEnabled = jsonStatusDescription.enabled;
+      window.currentGatewayInfo.actionMode = jsonStatusDescription.state;
+      window.currentGatewayInfo.threshold = jsonStatusDescription.threshold;
       console.log('successfully got gateway configuration information'); 
       return true;
     } else {
