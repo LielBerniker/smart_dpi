@@ -26,7 +26,7 @@ async function isTaskSucceeded(item, itemNum, callback) {
     if (data.tasks && data.tasks.length > 0) {
       const taskStatus = data.tasks[itemNum].status;
       let statusDescription = data.tasks[itemNum]["task-details"][0].statusDescription;
-      alert(statusDescriptio);
+      alert(statusDescription);
       if (taskStatus === "succeeded") {
         let current_task = data.tasks[itemNum]
         alert(current_task);
