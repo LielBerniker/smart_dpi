@@ -20,7 +20,7 @@ let gatewayName
 let currentGatewayInfo = new GatewayConfigInfo()
 
 async function isTaskSucceeded(item, itemNum) {
-  try {
+  // try {
     const data = JSON.parse(item);
     console.log(data);
     // Access the status of the first task directly
@@ -32,7 +32,7 @@ async function isTaskSucceeded(item, itemNum) {
       if (taskStatus === "succeeded") {
         let current_task = data.tasks[itemNum]
         console.log(current_task);
-        // callback(current_task);
+        callback(current_task);
         return true;
       } else {
         alert('Item task status is faliure.');
@@ -42,11 +42,11 @@ async function isTaskSucceeded(item, itemNum) {
       alert('No tasks found in data.');
       console.log('No tasks found in data.');
     }
-  } catch (error) {
-    const errorMessage = error.message
-    alert("Error parsing JSON (isTaskSucceeded):" + errorMessage);
-    console.log("Error parsing JSON (isTaskSucceeded):" + errorMessage);
-  }
+  // } catch (error) {
+  //   const errorMessage = error.message
+  //   alert("Error parsing JSON (isTaskSucceeded):" + errorMessage);
+  //   console.log("Error parsing JSON (isTaskSucceeded):" + errorMessage);
+  // }
   return false;
 }
 
