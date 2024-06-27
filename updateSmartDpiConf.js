@@ -185,7 +185,7 @@ function onCommitReport(value) {
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
-      if (!getCongigurationData(item)){
+      if (!getCongigurationData(firstItem)){
         alert('fail to get Congiguratio nData of Smart Dpi');
       }
       else{
