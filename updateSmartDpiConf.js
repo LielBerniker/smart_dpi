@@ -19,22 +19,23 @@ const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
 let currentGatewayInfo = new GatewayConfigInfo()
 
-async function isTaskSucceeded(item, itemNum) {
+async function isTaskSucceeded(item, callback) {
   console.log(typeof item);
   console.log(item);
   // try {
+    // temp1
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
     console.log(jsonString);
     const jsonData = JSON.parse(jsonString);
     console.log(jsonData);
     // Access the status of the first task directly
     if (jsonData.tasks && jsonData.tasks.length > 0) {
-      const taskStatus = data.tasks[itemNum].status;
+      const taskStatus = jsonData.tasks[0].status;
       console.log(taskStatus);
       let statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       console.log(statusDescription);
       if (taskStatus === "succeeded") {
-        let current_task = data.tasks[itemNum]
+        let current_task = jsonData.tasks[0]
         console.log(current_task);
         callback(current_task);
         return true;
@@ -80,7 +81,7 @@ async function reportUpdateConfig(task) {
 function onCommitUpdate(value) {
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    if (!isTaskSucceeded(firstItem, 0)){
+    if (!isTaskSucceeded(firstItem, reportUpdateConfig())){
       alert('fail to get update Smart Dpi configuration');
       console.log('fail to get update Smart Dpi configuration');
     }
@@ -182,7 +183,7 @@ function onCommitReport(value) {
   removeLoader()
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    if (!isTaskSucceeded(firstItem, 0)){
+    if (!isTaskSucceeded(firstItem, getCongigurationData())){
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
