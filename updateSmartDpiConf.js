@@ -25,9 +25,11 @@ async function isTaskSucceeded(item, itemNum, callback) {
     // Access the status of the first task directly
     if (data.tasks && data.tasks.length > 0) {
       const taskStatus = data.tasks[itemNum].status;
+      let statusDescription = data.tasks[itemNum]["task-details"][0].statusDescription;
+      alert(statusDescriptio);
       if (taskStatus === "succeeded") {
-        const current_task = data.tasks[itemNum]
-        alert('current task in check task succeded' + current_task);
+        let current_task = data.tasks[itemNum]
+        alert(current_task);
         callback(current_task);
         return true;
       } else {
@@ -37,7 +39,7 @@ async function isTaskSucceeded(item, itemNum, callback) {
       alert('No tasks found in data.');
     }
   } catch (error) {
-    alert("Error parsing JSON:" + error);
+    alert("Error parsing JSON (isTaskSucceeded):" + error);
   }
   return false;
 }
@@ -54,7 +56,7 @@ async function getCongigurationData(task) {
       actionMode.threshold = statusDetails.threshold;
       alert('successfully got gateway configuration information');
   } catch (error) {
-    alert("Error parsing JSON:" + error);
+    alert("Error parsing JSON(getCongigurationData):" + error);
   }
 }
 
@@ -66,7 +68,7 @@ function onCommitUpdate(value) {
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
     if (!isTaskSucceeded(firstItem, 0, reportUpdateConfig())){
-      alert('fail to get report of Smart Dpi configuration');
+      alert('fail to get update Smart Dpi configuration');
     }
   }
 }
