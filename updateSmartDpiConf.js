@@ -30,7 +30,7 @@ async function isTaskSucceeded(item, itemNum, callback) {
       if (taskStatus === "succeeded") {
         let current_task = data.tasks[itemNum]
         alert(current_task);
-        callback(current_task);
+        // callback(current_task);
         return true;
       } else {
         alert('Item task status is faliure.');
