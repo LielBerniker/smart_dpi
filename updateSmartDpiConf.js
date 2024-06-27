@@ -20,6 +20,7 @@ let gatewayName
 let currentGatewayInfo = new GatewayConfigInfo()
 
 async function isTaskSucceeded(item, itemNum) {
+  console.log(item);
   // try {
     const data = JSON.parse(item);
     console.log(data);
