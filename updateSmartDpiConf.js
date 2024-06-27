@@ -58,6 +58,7 @@ function getCongigurationData(item) {
   try {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
+      console.log(statusDescription);
       currentGatewayInfo.isEnabled = statusDescription.enabled;
       currentGatewayInfo.actionMode = statusDescription.state;
       actionMode.threshold = statusDescription.threshold;
@@ -184,7 +185,12 @@ function onCommitReport(value) {
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
-      initParameters()
+      if (!getCongigurationData(item)){
+        alert('fail to get Congiguratio nData of Smart Dpi');
+      }
+      else{
+        initParameters()
+      }
     }
   }
 }
