@@ -19,7 +19,7 @@ const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
 let currentGatewayInfo = new GatewayConfigInfo()
 
-async function isTaskSucceeded(item, callback) {
+async function isTaskSucceeded(item, updateFunction) {
   console.log(typeof item);
   console.log(item);
   // try {
@@ -37,7 +37,7 @@ async function isTaskSucceeded(item, callback) {
       if (taskStatus === "succeeded") {
         let current_task = jsonData.tasks[0]
         console.log(current_task);
-        callback(current_task);
+        updateFunction(current_task);
         return true;
       } else {
         alert('Item task status is faliure.');
@@ -57,7 +57,8 @@ async function isTaskSucceeded(item, callback) {
 
 
 async function getCongigurationData(task) {
-  alert('current task in get conf is ' + task);
+  console.log(task);
+  console.log('Parsed JSON data:', JSON.stringify(task, null, 2));
   try {
     // Access status description, contains the current gateway configuration of smart dpi
       let statusDescription = task["task-details"][0].statusDescription;
