@@ -22,11 +22,12 @@ let currentGatewayInfo = new GatewayConfigInfo()
 async function isTaskSucceeded(item, itemNum) {
   try {
     const data = JSON.parse(item);
-  
+    console.log(data);
     // Access the status of the first task directly
     if (data.tasks && data.tasks.length > 0) {
       const taskStatus = data.tasks[itemNum].status;
-      let statusDescription = data.tasks[itemNum]["task-details"][0].statusDescription;
+      console.log(taskStatus);
+      let statusDescription = data.tasks[itemNum]["task-details"];
       console.log(statusDescription);
       if (taskStatus === "succeeded") {
         let current_task = data.tasks[itemNum]
