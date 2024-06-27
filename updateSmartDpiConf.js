@@ -61,7 +61,7 @@ function getCongigurationData(item) {
       console.log(statusDescription);
       currentGatewayInfo.isEnabled = statusDescription.enabled;
       currentGatewayInfo.actionMode = statusDescription.state;
-      actionMode.threshold = statusDescription.threshold;
+      currentGatewayInfo.threshold = statusDescription.threshold;
       alert('successfully got gateway configuration information');
       console.log('successfully got gateway configuration information'); 
       return true;
