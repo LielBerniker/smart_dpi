@@ -5,19 +5,18 @@
 const interfaceIcon =
   "M10.000,8.000 L10.000,7.000 L7.000,7.000 L6.000,7.000 L3.000,7.000 L3.000,8.000 L2.000,8.000 L2.000,7.000 L2.000,6.000 L3.000,6.000 L6.000,6.000 L6.000,5.000 L7.000,5.000 L7.000,6.000 L10.000,6.000 L11.000,6.000 L11.000,7.000 L11.000,8.000 L10.000,8.000 ZM8.000,4.000 L7.000,4.000 L7.000,4.000 L6.000,4.000 L6.000,4.000 L5.000,4.000 C4.448,4.000 4.000,3.552 4.000,3.000 L4.000,1.000 C4.000,0.447 4.448,-0.000 5.000,-0.000 L8.000,-0.000 C8.552,-0.000 9.000,0.447 9.000,1.000 L9.000,3.000 C9.000,3.552 8.552,4.000 8.000,4.000 ZM5.000,10.000 L5.000,12.000 C5.000,12.552 4.552,13.000 4.000,13.000 L1.000,13.000 C0.448,13.000 -0.000,12.552 -0.000,12.000 L-0.000,10.000 C-0.000,9.447 0.448,9.000 1.000,9.000 L1.000,9.000 L1.000,9.000 L4.001,9.000 C4.553,9.001 5.000,9.448 5.000,10.000 ZM9.000,9.000 L9.000,9.000 L9.000,9.000 L12.001,9.000 C12.553,9.001 13.000,9.448 13.000,10.000 L13.000,12.000 C13.000,12.552 12.552,13.000 12.000,13.000 L9.000,13.000 C8.448,13.000 8.000,12.552 8.000,12.000 L8.000,10.000 C8.000,9.447 8.448,9.000 9.000,9.000 Z";
 
-  class GatewayConfigInfo {
+class GatewayConfigInfo {
     constructor(isEnabled, actionMode, threshold) {
         this.isEnabled = isEnabled;
         this.actionMode = actionMode;
         this.threshold = threshold;
-    }
-    
+    }  
 }
 
 const smartDpiConfigUpdate = "python3 $FWDIR/bin/smart_dpi_config_update.pyc"
 const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
-var currentGatewayInfo = new GatewayConfigInfo("Enabled", "Monitor", "60")
+window.currentGatewayInfo = new GatewayConfigInfo("Enabled", "Monitor", "60")
 
 function isTaskSucceeded(item) {
   console.log(typeof item);
@@ -59,9 +58,12 @@ function getCongigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       console.log(statusDescription);
-      currentGatewayInfo.isEnabled = statusDescription.enabled;
-      currentGatewayInfo.actionMode = statusDescription.state;
-      currentGatewayInfo.threshold = statusDescription.threshold;
+      console.log(statusDescription.enabled)
+      console.log( statusDescription.state)
+      console.log(statusDescription.threshold)
+      window.currentGatewayInfo.isEnabled = statusDescription.enabled;
+      window.currentGatewayInfo.actionMode = statusDescription.state;
+      window.currentGatewayInfo.threshold = statusDescription.threshold;
       console.log('successfully got gateway configuration information'); 
       return true;
     } else {
@@ -138,18 +140,18 @@ function initParameters() {
     runUpdateConfigOnGW(gatewayInfo)
 
   });
-  console.log(currentGatewayInfo.threshold)
-  console.log(currentGatewayInfo.actionMode)
-  console.log(currentGatewayInfo.isEnabled)
-  thresholdInput.value = Number(currentGatewayInfo.threshold);
-  stateAction.textContent = currentGatewayInfo.actionMode;
-  if (currentGatewayInfo.actionMode.toLowerCase() === "monitor"){
+  console.log(window.currentGatewayInfo.threshold)
+  console.log(window.currentGatewayInfo.actionMode)
+  console.log(window.currentGatewayInfo.isEnabled)
+  thresholdInput.value = Number(window.currentGatewayInfo.threshold);
+  stateAction.textContent = window.currentGatewayInfo.actionMode;
+  if (window.currentGatewayInfo.actionMode.toLowerCase() === "monitor"){
     toggleAction.checked = false;
   }
   else{
     toggleAction.checked = true;
   }
-  if (currentGatewayInfo.isEnabled.toLowerCase() === "false"){
+  if (window.currentGatewayInfo.isEnabled.toLowerCase() === "false"){
     toggleEnableDisable.checked = false;
   }
   else{
