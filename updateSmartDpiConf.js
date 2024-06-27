@@ -19,10 +19,10 @@ const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
 let currentGatewayInfo = new GatewayConfigInfo()
 
-async function isTaskSucceeded(item, updateFunction) {
+async function isTaskSucceeded(item) {
   console.log(typeof item);
   console.log(item);
-  // try {
+  try {
     // temp1
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
     console.log(jsonString);
@@ -32,12 +32,7 @@ async function isTaskSucceeded(item, updateFunction) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       const taskStatus = jsonData.tasks[0].status;
       console.log(taskStatus);
-      let statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
-      console.log(statusDescription);
       if (taskStatus === "succeeded") {
-        let current_task = jsonData.tasks[0]
-        console.log(current_task);
-        updateFunction(current_task);
         return true;
       } else {
         alert('Item task status is faliure.');
@@ -47,42 +42,43 @@ async function isTaskSucceeded(item, updateFunction) {
       alert('No tasks found in data.');
       console.log('No tasks found in data.');
     }
-  // } catch (error) {
-  //   const errorMessage = error.message
-  //   alert("Error parsing JSON (isTaskSucceeded):" + errorMessage);
-  //   console.log("Error parsing JSON (isTaskSucceeded):" + errorMessage);
-  // }
+  } catch (error) {
+    const errorMessage = error.message
+    alert("Error parsing JSON (isTaskSucceeded):" + errorMessage);
+    console.log("Error parsing JSON (isTaskSucceeded):" + errorMessage);
+  }
   return false;
 }
 
 
-async function getCongigurationData(task) {
-  console.log(task);
-  console.log('Parsed JSON data:', JSON.stringify(task, null, 2));
+function getCongigurationData(item) {
+  const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
+  console.log(jsonString);
+  const jsonData = JSON.parse(jsonString);
   try {
-    // Access status description, contains the current gateway configuration of smart dpi
-      let statusDescription = task["task-details"][0].statusDescription;
-      const statusDetails = JSON.parse(statusDescription);
-      currentGatewayInfo.isEnabled = statusDetails.enabled;
-      currentGatewayInfo.actionMode = statusDetails.state;
-      actionMode.threshold = statusDetails.threshold;
+    if (jsonData.tasks && jsonData.tasks.length > 0) {
+      statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
+      currentGatewayInfo.isEnabled = statusDescription.enabled;
+      currentGatewayInfo.actionMode = statusDescription.state;
+      actionMode.threshold = statusDescription.threshold;
       alert('successfully got gateway configuration information');
-      console.log('successfully got gateway configuration information');
+      console.log('successfully got gateway configuration information'); 
+      return true;
+    } else {
+      alert('No tasks found in data.');
+      console.log('No tasks found in data.');
+    }
   } catch (error) {
     alert("Error parsing JSON(getCongigurationData):" + error);
     console.log("Error parsing JSON(getCongigurationData):" + error);
   }
-}
-
-async function reportUpdateConfig(task) {
-    alert('successfully updated gateway configuration');
-    console.log('successfully updated gateway configuration');
+  return false;
 }
 
 function onCommitUpdate(value) {
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    if (!isTaskSucceeded(firstItem, reportUpdateConfig())){
+    if (!isTaskSucceeded(firstItem)){
       alert('fail to get update Smart Dpi configuration');
       console.log('fail to get update Smart Dpi configuration');
     }
@@ -184,7 +180,7 @@ function onCommitReport(value) {
   removeLoader()
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    if (!isTaskSucceeded(firstItem, getCongigurationData())){
+    if (!isTaskSucceeded(firstItem)){
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
