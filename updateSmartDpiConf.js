@@ -39,7 +39,8 @@ async function isTaskSucceeded(item, itemNum, callback) {
       alert('No tasks found in data.');
     }
   } catch (error) {
-    alert("Error parsing JSON (isTaskSucceeded):" + error);
+    const errorMessage = error.message
+    alert("Error parsing JSON (isTaskSucceeded):" + errorMessage);
   }
   return false;
 }
