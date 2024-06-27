@@ -20,9 +20,11 @@ let gatewayName
 let currentGatewayInfo = new GatewayConfigInfo()
 
 async function isTaskSucceeded(item, itemNum) {
+  console.log(typeof item);
   console.log(item);
   // try {
-    const jsonString = item.match(/\{.*\}/s)[0];
+    const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
+    console.log(jsonString);
     const jsonData = JSON.parse(jsonString);
     console.log(jsonData);
     // Access the status of the first task directly
