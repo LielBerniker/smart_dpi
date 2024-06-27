@@ -19,18 +19,13 @@ let gatewayName
 window.currentGatewayInfo = new GatewayConfigInfo("Enabled", "Monitor", "60")
 
 function isTaskSucceeded(item) {
-  console.log(typeof item);
-  console.log(item);
   try {
     // temp1
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
-    console.log(jsonString);
     const jsonData = JSON.parse(jsonString);
-    console.log(jsonData);
     // Access the status of the first task directly
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       const taskStatus = jsonData.tasks[0].status;
-      console.log(taskStatus);
       if (taskStatus === "succeeded") {
         return true;
       } else {
@@ -51,17 +46,12 @@ function isTaskSucceeded(item) {
 
 
 function getCongigurationData(item) {
-  const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
-  console.log(jsonString);
-  const jsonData = JSON.parse(jsonString);
   try {
+    const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
+    const jsonData = JSON.parse(jsonString);
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
-      console.log(statusDescription);
       const jsonStatusDescription = JSON.parse(statusDescription);
-      console.log(jsonStatusDescription.enabled)
-      console.log(jsonStatusDescription.state)
-      console.log(jsonStatusDescription.threshold)
       window.currentGatewayInfo.isEnabled = jsonStatusDescription.enabled;
       window.currentGatewayInfo.actionMode = jsonStatusDescription.state;
       window.currentGatewayInfo.threshold = jsonStatusDescription.threshold;
@@ -141,9 +131,7 @@ function initParameters() {
     runUpdateConfigOnGW(gatewayInfo)
 
   });
-  console.log(window.currentGatewayInfo.threshold)
-  console.log(window.currentGatewayInfo.actionMode)
-  console.log(window.currentGatewayInfo.isEnabled)
+
   thresholdInput.value = Number(window.currentGatewayInfo.threshold);
   stateAction.textContent = window.currentGatewayInfo.actionMode;
   if (window.currentGatewayInfo.actionMode.toLowerCase() === "monitor"){
