@@ -21,11 +21,7 @@ window.currentGatewayInfo = new GatewayConfigInfo("Enabled", "Monitor", "60")
 function onCommitfetchLocal(value) {
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    console.log(firstItem);
-    // if (!isTaskSucceeded(firstItem)){
-    //   alert('fail to get update Smart Dpi configuration');
-    //   console.log('fail to get update Smart Dpi configuration');
-    // }
+    console.log("Finish to run fw fetch local");
   }
 }
 
