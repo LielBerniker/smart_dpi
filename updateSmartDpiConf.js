@@ -29,7 +29,7 @@ function onCommitfetchLocal(value) {
   }
 }
 
-function runLocalFetchOnGW(gatewayInfo) {
+function runLocalFetchOnGW() {
 
   const fetchLocalCli = "fw fetch local"
   const mgmtCli = `run-script script-name "fw_fetch_local" script "${fetchLocalCli}" targets.1 "${gatewayName}" --format json`;
@@ -93,6 +93,9 @@ function onCommitUpdate(value) {
     if (!isTaskSucceeded(firstItem)){
       alert('fail to get update Smart Dpi configuration');
       console.log('fail to get update Smart Dpi configuration');
+    }
+    else{
+      runLocalFetchOnGW()
     }
   }
 }
