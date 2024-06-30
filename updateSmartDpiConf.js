@@ -18,6 +18,25 @@ const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc"
 let gatewayName
 window.currentGatewayInfo = new GatewayConfigInfo("Enabled", "Monitor", "60")
 
+function onCommitfetchLocal(value) {
+  if (Array.isArray(value) && value.length > 0) {
+    var firstItem = value[0];
+    console.log(firstItem);
+    // if (!isTaskSucceeded(firstItem)){
+    //   alert('fail to get update Smart Dpi configuration');
+    //   console.log('fail to get update Smart Dpi configuration');
+    // }
+  }
+}
+
+function runLocalFetchOnGW(gatewayInfo) {
+
+  const fetchLocalCli = "fw fetch local"
+  const mgmtCli = `run-script script-name "fw_fetch_local" script "${fetchLocalCli}" targets.1 "${gatewayName}" --format json`;
+  //request to commit changes
+  smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitfetchLocal");
+}
+
 function isTaskSucceeded(item) {
   try {
     // temp1
