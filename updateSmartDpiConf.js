@@ -11,7 +11,7 @@ const smartDpiConfigUpdate = "python3 $FWDIR/bin/smart_dpi_config_update.pyc";
 const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc";
 const smartDpiInformationKey = "smart_dpi_information";
 
-let gatewayName;
+window.gatewayName;
 window.currentGatewayInfo = new GatewayConfigInfo("Enabled", "Monitor", "60");
 
 function onCommitfetchLocal(value) {
@@ -24,7 +24,7 @@ function onCommitfetchLocal(value) {
 function runLocalFetchOnGW() {
 
   const fetchLocalCli = "fw fetch local"
-  const mgmtCli = `run-script script-name "fw_fetch_local" script "${fetchLocalCli}" targets.1 "${gatewayName}" --format json`;
+  const mgmtCli = `run-script script-name "fw_fetch_local" script "${fetchLocalCli}" targets.1 "${window.gatewayName}" --format json`;
   //request to commit changes
   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitfetchLocal");
 }
@@ -104,7 +104,7 @@ function runUpdateConfigOnGW() {
   console.log(window.currentGatewayInfo);
   const updateConfigCli = smartDpiConfigUpdate + " " + window.currentGatewayInfo.isEnabled.toString() + " " + window.currentGatewayInfo.actionMode + " " + window.currentGatewayInfo.threshold.toString()
   console.log(updateConfigCli);
-  const mgmtCli = `run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${gatewayName}" --format json`;
+  const mgmtCli = `run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${window.gatewayName}" --format json`;
   console.log(mgmtCli);
 
 
@@ -224,8 +224,8 @@ function onCommitReport(value) {
 }
 
 function onContext(obj) {
-  gatewayName = obj.event.objects[0]["name"];
-  const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${gatewayName}" --format json`;
+  window.gatewayName = obj.event.objects[0]["name"];
+  const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${window.gatewayName}" --format json`;
   console.log(mgmtCli);
   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
 }
