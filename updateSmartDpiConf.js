@@ -33,9 +33,12 @@ function isTaskSucceeded(item) {
   try {
     // temp1
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
+    console.log(jsonString);
     const jsonData = JSON.parse(jsonString);
+    console.log(jsonData);
     // Access the status of the first task directly
     if (jsonData.tasks && jsonData.tasks.length > 0) {
+      console.log(jsonData.tasks);
       const taskStatus = jsonData.tasks[0].status;
       if (taskStatus === "succeeded") {
         return true;
