@@ -60,7 +60,7 @@ function isTaskSucceeded(item) {
 }
 
 
-function getCongigurationData(item) {
+function getConfigurationData(item) {
   try {
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
     const jsonData = JSON.parse(jsonString);
@@ -96,9 +96,9 @@ function onCommitUpdate(value) {
   }
 }
 
-function runUpdateConfigOnGW(gatewayInfo) {
-
-  const updateConfigCli = smartDpiConfigUpdate + " " + gatewayInfo.isEnabled.toString() + " " + gatewayInfo.actionMode + " " + gatewayInfo.threshold.toString()
+function runUpdateConfigOnGW() {
+  console.log(window.currentGatewayInfo);
+  const updateConfigCli = smartDpiConfigUpdate + " " + window.currentGatewayInfo.isEnabled.toString() + " " + window.currentGatewayInfo.actionMode + " " + window.currentGatewayInfo.threshold.toString()
   console.log(updateConfigCli);
   const mgmtCli = `run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${gatewayName}" --format json`;
 
@@ -107,12 +107,12 @@ function runUpdateConfigOnGW(gatewayInfo) {
   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitUpdate");
 }
 
-function updateLocalStorge(gatewayInfo) {
+function updateLocalStorge() {
 
   const SmartDpiObject = {
-    enabled: gatewayInfo.isEnabled,
-    state: gatewayInfo.actionMode,
-    threshold: gatewayInfo.threshold
+    enabled: window.currentGatewayInfo.isEnabled,
+    state: window.currentGatewayInfo.actionMode,
+    threshold: window.currentGatewayInfo.threshold
   };
   localStorage.setItem(smartDpiInformationKey, JSON.stringify(SmartDpiObject));
   console.log("Finish to update local storage");
@@ -157,10 +157,10 @@ function initParameters() {
         alert('Please enter a valid threshold percentage between 1 and 100.');
         return;
     }
-
-    gatewayInfo = new GatewayConfigInfo(isEnabled, actionMode, threshold);
-    runUpdateConfigOnGW(gatewayInfo);
-    updateLocalStorge(gatewayInfo);
+    window.currentGatewayInfo.isEnabled = isEnabled;
+    window.currentGatewayInfo.actionMode = actionMode;
+    window.currentGatewayInfo.threshold = threshold;
+    runUpdateConfigOnGW();
 
   });
 
@@ -208,8 +208,8 @@ function onCommitReport(value) {
       alert('fail to get report of Smart Dpi configuration');
     }
     else{
-      if (!getCongigurationData(firstItem)){
-        alert('fail to get Congiguratio nData of Smart Dpi');
+      if (!getConfigurationData(firstItem)){
+        alert('fail to get Congiguration Data of Smart Dpi');
       }
       else{
         initParameters()
@@ -230,18 +230,20 @@ function onContext(obj) {
  */
 function showContext() {
   addLoader();
-  // if (!localStorage.hasOwnProperty(smartDpiInformationKey))
-  // {
-  //   // send API request
-  //   smxProxy.sendRequest("get-context", null, "onContext");
-  // }else{
-  //   smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
-  //   const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
-  //   window.currentGatewayInfo.isEnabled = parsedSmartDpiInformation.enabled;
-  //   window.currentGatewayInfo.actionMode = parsedSmartDpiInformation.state;
-  //   window.currentGatewayInfo.threshold = parsedSmartDpiInformation.threshold;
-  //   initParameters();
-  // }
+  if (!localStorage.hasOwnProperty(smartDpiInformationKey))
+  {
     // send API request
     smxProxy.sendRequest("get-context", null, "onContext");
+  }else{
+    smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
+    const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
+    console.log(smartDpiInformation);
+    console.log(parsedSmartDpiInformation);
+    window.currentGatewayInfo.isEnabled = parsedSmartDpiInformation.enabled;
+    window.currentGatewayInfo.actionMode = parsedSmartDpiInformation.state;
+    window.currentGatewayInfo.threshold = parsedSmartDpiInformation.threshold;
+    initParameters();
+  }
+    // // send API request
+    // smxProxy.sendRequest("get-context", null, "onContext");
 }
