@@ -105,6 +105,7 @@ function runUpdateConfigOnGW() {
   const updateConfigCli = smartDpiConfigUpdate + " " + window.currentGatewayInfo.isEnabled.toString() + " " + window.currentGatewayInfo.actionMode + " " + window.currentGatewayInfo.threshold.toString()
   console.log(updateConfigCli);
   const mgmtCli = `run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${gatewayName}" --format json`;
+  console.log(mgmtCli);
 
 
   //request to commit changes
@@ -225,6 +226,7 @@ function onCommitReport(value) {
 function onContext(obj) {
   gatewayName = obj.event.objects[0]["name"];
   const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${gatewayName}" --format json`;
+  console.log(mgmtCli);
   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
 }
 
