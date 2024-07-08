@@ -161,6 +161,7 @@ function initParameters() {
     window.currentGatewayInfo.actionMode = actionMode;
     window.currentGatewayInfo.threshold = threshold;
     runUpdateConfigOnGW();
+    updateLocalStorge()
 
   });
 
