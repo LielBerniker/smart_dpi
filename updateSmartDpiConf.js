@@ -84,13 +84,16 @@ function getConfigurationData(item) {
 }
 
 function onCommitUpdate(value) {
+  console.log(value);
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
+    console.log(firstItem);
     if (!isTaskSucceeded(firstItem)){
       alert('fail to update Smart Dpi configuration');
       console.log('fail to update Smart Dpi configuration');
     }
     else{
+      updateLocalStorge()
       runLocalFetchOnGW()
     }
   }
@@ -161,7 +164,6 @@ function initParameters() {
     window.currentGatewayInfo.actionMode = actionMode;
     window.currentGatewayInfo.threshold = threshold;
     runUpdateConfigOnGW();
-    updateLocalStorge()
 
   });
 
@@ -242,7 +244,7 @@ function showContext() {
     console.log(parsedSmartDpiInformation);
     window.currentGatewayInfo.isEnabled = parsedSmartDpiInformation.enabled;
     window.currentGatewayInfo.actionMode = parsedSmartDpiInformation.state;
-    window.currentGatewayInfo.threshold = parsedSmartDpiInformation.threshold;
+    window.currentGatewayInfo.threshold = Number(parsedSmartDpiInformation.threshold);
     initParameters();
   }
     // // send API request
