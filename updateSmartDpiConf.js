@@ -85,6 +85,9 @@ function getCongigurationData(item) {
 function onCommitUpdate(value) {
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
+    console.log(value);
+    console.log("--------------------------------");
+    console.log(firstItem);
     if (!isTaskSucceeded(firstItem)){
       alert('fail to get update Smart Dpi configuration');
       console.log('fail to get update Smart Dpi configuration');
@@ -98,7 +101,9 @@ function onCommitUpdate(value) {
 function runUpdateConfigOnGW(gatewayInfo) {
 
   const updateConfigCli = smartDpiConfigUpdate + " " + gatewayInfo.isEnabled.toString() + " " + gatewayInfo.actionMode + " " + gatewayInfo.threshold.toString()
+  console.log(updateConfigCli);
   const mgmtCli = `run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${gatewayName}" --format json`;
+
 
   //request to commit changes
   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitUpdate");
