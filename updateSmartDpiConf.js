@@ -63,6 +63,7 @@ function getCongigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       const jsonStatusDescription = JSON.parse(statusDescription);
+      console.log(jsonStatusDescription); 
       window.currentGatewayInfo.isEnabled = (jsonStatusDescription.enabled.toLowerCase() === 'true') ? true : false;
       window.currentGatewayInfo.actionMode = jsonStatusDescription.state;
       window.currentGatewayInfo.threshold = Number(jsonStatusDescription.threshold);

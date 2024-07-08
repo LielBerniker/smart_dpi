@@ -7,32 +7,39 @@
 
   <body onload="showContext()">
     <script src="updateSmartDpiConf.js"></script>
+  <div class="main-container"></div>
+    <div class="container">
+      <div class="toggle-wrapper">
+        <span class="toggle-label">Enable/Disable:</span>
+        <label class="switch">
+          <input type="checkbox" id="toggleEnableDisable">
+          <span class="slider"></span>
+        </label>
+        <span id="stateEnableDisable" class="state-text">Disabled</span>
+      </div>
 
-  <div class="container">
-    <div class="toggle-wrapper">
-      <span class="toggle-label">Enable/Disable:</span>
-      <label class="switch">
-        <input type="checkbox" id="toggleEnableDisable">
-        <span class="slider"></span>
-      </label>
-      <span id="stateEnableDisable" class="state-text">Disabled</span>
+      <div class="toggle-wrapper">
+        <span class="toggle-label">Action Mode (Monitor/Prevent):</span>
+        <label class="switch">
+          <input type="checkbox" id="toggleAction">
+          <span class="slider"></span>
+        </label>
+        <span id="stateAction" class="state-text">Monitor</span>
+      </div>
+
+      <div class="threshold-wrapper">
+        <label for="threshold">Threshold (%):</label>
+        <input type="number" id="threshold" min="0" max="100" placeholder="Enter percentage">
+      </div>
+
+      <button id="saveButton">Submit</button>
     </div>
-
-    <div class="toggle-wrapper">
-      <span class="toggle-label">Action Mode (Monitor/Prevent):</span>
-      <label class="switch">
-        <input type="checkbox" id="toggleAction">
-        <span class="slider"></span>
-      </label>
-      <span id="stateAction" class="state-text">Monitor</span>
-    </div>
-
-    <div class="threshold-wrapper">
-      <label for="threshold">Threshold (%):</label>
-      <input type="number" id="threshold" min="0" max="100" placeholder="Enter percentage">
-    </div>
-
-    <button id="saveButton">Submit</button>
-</div>
+    <div class="info-container">
+      <h2>Information List</h2>
+      <ul id="infoList">
+          <!-- Items will be added here dynamically -->
+      </ul>
+  </div>
+  </div>
   </body>
 </html>
