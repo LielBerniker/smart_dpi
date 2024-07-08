@@ -86,12 +86,9 @@ function getCongigurationData(item) {
 function onCommitUpdate(value) {
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    console.log(value);
-    console.log("--------------------------------");
-    console.log(firstItem);
     if (!isTaskSucceeded(firstItem)){
-      alert('fail to get update Smart Dpi configuration');
-      console.log('fail to get update Smart Dpi configuration');
+      alert('fail to update Smart Dpi configuration');
+      console.log('fail to update Smart Dpi configuration');
     }
     else{
       runLocalFetchOnGW()
@@ -233,17 +230,18 @@ function onContext(obj) {
  */
 function showContext() {
   addLoader();
-  if (!localStorage.hasOwnProperty(smartDpiInformationKey))
-  {
+  // if (!localStorage.hasOwnProperty(smartDpiInformationKey))
+  // {
+  //   // send API request
+  //   smxProxy.sendRequest("get-context", null, "onContext");
+  // }else{
+  //   smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
+  //   const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
+  //   window.currentGatewayInfo.isEnabled = parsedSmartDpiInformation.enabled;
+  //   window.currentGatewayInfo.actionMode = parsedSmartDpiInformation.state;
+  //   window.currentGatewayInfo.threshold = parsedSmartDpiInformation.threshold;
+  //   initParameters();
+  // }
     // send API request
     smxProxy.sendRequest("get-context", null, "onContext");
-  }else{
-    smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
-    const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
-    window.currentGatewayInfo.isEnabled = parsedSmartDpiInformation.enabled;
-    window.currentGatewayInfo.actionMode = parsedSmartDpiInformation.state;
-    window.currentGatewayInfo.threshold = parsedSmartDpiInformation.threshold;
-    initParameters();
-  }
-
 }
