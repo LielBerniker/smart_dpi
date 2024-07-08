@@ -109,6 +109,7 @@ function updateLocalStorge(gatewayInfo) {
     threshold: gatewayInfo.threshold
   };
   localStorage.setItem(smartDpiInformationKey, JSON.stringify(SmartDpiObject));
+  console.log("Finish to update local storage");
 }
 
 function initParameters() {
