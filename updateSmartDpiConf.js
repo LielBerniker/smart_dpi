@@ -32,6 +32,7 @@ function runLocalFetchOnGW() {
 function isTaskSucceeded(item) {
   try {
     // temp1
+    console.log(item);
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
     console.log(jsonString);
     const jsonData = JSON.parse(jsonString);
