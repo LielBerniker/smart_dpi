@@ -63,7 +63,7 @@ function getCongigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       const jsonStatusDescription = JSON.parse(statusDescription);
-      window.currentGatewayInfo.isEnabled = jsonStatusDescription.enabled;
+      window.currentGatewayInfo.isEnabled = (jsonStatusDescription.enabled.toLowerCase() === 'true') ? true : false;
       window.currentGatewayInfo.actionMode = jsonStatusDescription.state;
       window.currentGatewayInfo.threshold = Number(jsonStatusDescription.threshold);
       console.log('successfully got gateway configuration information'); 
@@ -166,7 +166,7 @@ function initParameters() {
   else{
     toggleAction.checked = true;
   }
-  if (window.currentGatewayInfo.isEnabled.toLowerCase() === "false"){
+  if (!window.currentGatewayInfo.isEnabled){
     toggleEnableDisable.checked = false;
   }
   else{
