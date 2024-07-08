@@ -32,7 +32,7 @@ function runLocalFetchOnGW() {
 function isTaskSucceeded(item) {
   try {
     // temp1
-    console.log(item);
+    console.log(JSON.stringify(item, null, 2));
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
     console.log(jsonString);
     const jsonData = JSON.parse(jsonString);
@@ -84,10 +84,11 @@ function getConfigurationData(item) {
 }
 
 function onCommitUpdate(value) {
-  console.log(value);
+  console.log(JSON.stringify(value, null, 2));
+  
   if (Array.isArray(value) && value.length > 0) {
     var firstItem = value[0];
-    console.log(firstItem);
+    console.log(JSON.stringify(firstItem, null, 2));
     if (!isTaskSucceeded(firstItem)){
       alert('fail to update Smart Dpi configuration');
       console.log('fail to update Smart Dpi configuration');
