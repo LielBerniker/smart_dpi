@@ -63,7 +63,6 @@ function getCongigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       const jsonStatusDescription = JSON.parse(statusDescription);
-      console.log(jsonStatusDescription); 
       window.currentGatewayInfo.isEnabled = (jsonStatusDescription.enabled.toLowerCase() === 'true') ? true : false;
       window.currentGatewayInfo.actionMode = jsonStatusDescription.state;
       window.currentGatewayInfo.threshold = Number(jsonStatusDescription.threshold);
@@ -95,7 +94,7 @@ function onCommitUpdate(value) {
 
 function runUpdateConfigOnGW(gatewayInfo) {
 
-  const updateConfigCli = smartDpiConfigUpdate + " " + gatewayInfo.isEnabled + " " + gatewayInfo.actionMode + " " + gatewayInfo.threshold.toString()
+  const updateConfigCli = smartDpiConfigUpdate + " " + gatewayInfo.isEnabled.toString() + " " + gatewayInfo.actionMode + " " + gatewayInfo.threshold.toString()
   const mgmtCli = `run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${gatewayName}" --format json`;
 
   //request to commit changes
