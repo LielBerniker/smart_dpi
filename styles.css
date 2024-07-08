@@ -1,11 +1,13 @@
-/* Container styles */
-.main-container {
+/* Main wrapper to hold both containers */
+.wrapper {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  background-color: #f9f9f9;
 }
 
-.container {
+/* Container for the main form */
+.main-container {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -17,33 +19,32 @@
   align-items: center;
 }
 
+/* Container for the information list */
 .info-container {
-  background-color: #f9f9f9;
+  background-color: #eee;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 400px;
+  width: 300px;
   font-family: Arial, sans-serif;
 }
 
-.info-container h2 {
-  margin-top: 0;
-  color: #333;
+/* Styling for information items */
+.info-item {
+  margin-bottom: 15px;
 }
 
-#infoList {
-  list-style: none;
-  padding: 0;
+.date {
+  display: block;
+  font-weight: bold;
 }
 
-#infoList li {
-  margin-bottom: 10px;
-  background: #e9e9e9;
-  padding: 10px;
-  border-radius: 4px;
+.description {
+  display: block;
+  margin-top: 5px;
 }
 
-.toggle-wrapper {
+/* Flexbox styling for main-container elements */
+.toggle-wrapper, .threshold-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,7 +52,8 @@
   margin-bottom: 15px;
 }
 
-.toggle-label {
+/* Additional styling for form elements */
+.toggle-label, .threshold-wrapper label {
   flex: 1;
   margin-right: 10px;
   font-size: 16px;
@@ -109,18 +111,6 @@ input:checked + .slider:before {
   color: #555;
 }
 
-.threshold-wrapper {
-  margin-top: 15px;
-  width: 100%;
-}
-
-label[for="threshold"] {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 16px;
-  color: #333;
-}
-
 input[type="number"] {
   width: calc(100% - 20px);
   padding: 10px;
@@ -145,6 +135,6 @@ button:hover {
   background-color: #45a049;
 }
 
-#stateEnableDisable,#stateAction {
+#stateEnableDisable, #stateAction {
   width: 40px;
 }
