@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 20px;
-  gap: 20px; /* Adds space between the containers */
+  padding: 5px;
+  gap: 5px; /* Adds space between the containers */
 }
 
 .container {
