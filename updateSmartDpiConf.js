@@ -197,6 +197,7 @@ function initParameters() {
   else{
     toggleEnableDisable.checked = true;
   }
+  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
 }
 
 
