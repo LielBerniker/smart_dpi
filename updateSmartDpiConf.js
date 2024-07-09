@@ -1,18 +1,25 @@
 
 class GatewayConfigInfo {
-    constructor(isEnabled, actionMode, threshold) {
+    constructor(isEnabled, mode, threshold) {
         this.isEnabled = isEnabled;
-        this.actionMode = actionMode;
+        this.mode = mode;
         this.threshold = threshold;
     }  
 }
 
 const smartDpiConfigUpdate = "python3 $FWDIR/bin/smart_dpi_config_update.pyc";
 const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc";
+const disabledMode = 1 /* Send report to cloud only */
+const monitordMode = 2 /* Monitor + send log to smart console */
+const actionMode = 3 /* Completely enabled */
+const monitorStr = "Monitor"
+const actionStr = "Action"
+const enabledStr = "Enabled"
+const disabledStr = "Disabled"
 var smartDpiInformationKey = "smart_dpi_information";
 
 window.gatewayName;
-window.currentGatewayInfo = new GatewayConfigInfo("Enabled", "Monitor", "60");
+window.currentGatewayInfo = new GatewayConfigInfo(0, monitorStr, 60);
 
 function onCommitfetchLocal(value) {
   if (Array.isArray(value) && value.length > 0) {
@@ -67,8 +74,21 @@ function getConfigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       const jsonStatusDescription = JSON.parse(statusDescription);
-      window.currentGatewayInfo.isEnabled = Number(jsonStatusDescription.enabled);
-      window.currentGatewayInfo.actionMode = jsonStatusDescription.state;
+      currentMode = Number(jsonStatusDescription.mode);
+      switch(currentMode) {
+        case actionMode:
+          window.currentGatewayInfo.mode = actionStr
+          window.currentGatewayInfo.isEnabled = 1
+          break;
+        case monitordMode:
+          window.currentGatewayInfo.mode = monitorStr
+          window.currentGatewayInfo.isEnabled = 1
+          break;
+
+        default:
+          window.currentGatewayInfo.mode = monitorStr
+          window.currentGatewayInfo.isEnabled = 0
+      }
       window.currentGatewayInfo.threshold = Number(jsonStatusDescription.threshold);
       console.log('successfully got gateway configuration information'); 
       return true;
@@ -102,7 +122,7 @@ function onCommitUpdate(value) {
 
 function runUpdateConfigOnGW() {
   console.log(window.currentGatewayInfo);
-  const updateConfigCli = smartDpiConfigUpdate + " " + window.currentGatewayInfo.isEnabled.toString() + " " + window.currentGatewayInfo.actionMode + " " + window.currentGatewayInfo.threshold.toString()
+  const updateConfigCli = smartDpiConfigUpdate + " " + window.currentGatewayInfo.isEnabled.toString() + " " + window.currentGatewayInfo.mode + " " + window.currentGatewayInfo.threshold.toString()
   console.log(updateConfigCli);
   const mgmtCli = `run-script script-name "smart_dpi_config_update" script "${updateConfigCli}" targets.1 "${window.gatewayName}" --format json`;
   console.log(mgmtCli);
@@ -116,7 +136,7 @@ function updateLocalStorge() {
   console.log(smartDpiInformationKey);
   const SmartDpiObject = {
     enabled: window.currentGatewayInfo.isEnabled,
-    state: window.currentGatewayInfo.actionMode,
+    state: window.currentGatewayInfo.mode,
     threshold: window.currentGatewayInfo.threshold
   };
   localStorage.setItem(smartDpiInformationKey, JSON.stringify(SmartDpiObject));
@@ -127,35 +147,29 @@ function initParameters() {
   removeLoader()
   const toggleEnableDisable = document.getElementById("toggleEnableDisable");
   const stateEnableDisable = document.getElementById("stateEnableDisable");
-  const toggleAction = document.getElementById("toggleAction");
-  const stateAction = document.getElementById("stateAction");
+  const toggleMode = document.getElementById("toggleMode");
+  const stateMode = document.getElementById("stateMode");
 
   // Initial state
-  stateEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
-  stateAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
+  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+  stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
 
   // Toggle for Enable/Disable
   toggleEnableDisable.addEventListener("change", function() {
-    stateEnableDisable.textContent = toggleEnableDisable.checked ? "Enabled" : "Disabled";
+    stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
   });
 
   // Toggle for Monitor/Prevent
-  toggleAction.addEventListener("change", function() {
-    stateAction.textContent = toggleAction.checked ? "Prevent" : "Monitor";
+  toggleMode.addEventListener("change", function() {
+    stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
   });
 
   const thresholdInput = document.getElementById('threshold');
-  thresholdInput.addEventListener('input', function () {
-    const thresholdValue = thresholdInput.value;
-    if (thresholdValue < 1 || thresholdValue > 100) {
-        alert('Please enter a valid threshold percentage between 1 and 100.');
-    }
-  });
 
   // Save button action
   document.getElementById('saveButton').addEventListener('click', function () {
     const isEnabled = toggleEnableDisable.checked ? 1 : 0;
-    const actionMode = toggleAction.checked ? 'Prevent' : 'Monitor';
+    const mode = toggleMode.checked ? actionStr : monitorStr;
     const threshold = thresholdInput.value;
 
     if (threshold < 1 || threshold > 100) {
@@ -163,19 +177,19 @@ function initParameters() {
         return;
     }
     window.currentGatewayInfo.isEnabled = isEnabled;
-    window.currentGatewayInfo.actionMode = actionMode;
+    window.currentGatewayInfo.mode = mode;
     window.currentGatewayInfo.threshold = threshold;
     runUpdateConfigOnGW();
 
   });
 
   thresholdInput.value = window.currentGatewayInfo.threshold;
-  stateAction.textContent = window.currentGatewayInfo.actionMode;
-  if (window.currentGatewayInfo.actionMode.toLowerCase() === "monitor"){
-    toggleAction.checked = false;
+  stateMode.textContent = window.currentGatewayInfo.mode;
+  if (window.currentGatewayInfo.mode.toLowerCase() === "monitor"){
+    toggleMode.checked = false;
   }
   else{
-    toggleAction.checked = true;
+    toggleMode.checked = true;
   }
   if (window.currentGatewayInfo.isEnabled == 0){
     toggleEnableDisable.checked = false;
@@ -238,7 +252,7 @@ function onContext(obj) {
     smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
     const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
     window.currentGatewayInfo.isEnabled = Number(parsedSmartDpiInformation.enabled);
-    window.currentGatewayInfo.actionMode = parsedSmartDpiInformation.state;
+    window.currentGatewayInfo.mode = parsedSmartDpiInformation.state;
     window.currentGatewayInfo.threshold = Number(parsedSmartDpiInformation.threshold);
     initParameters();
   }
