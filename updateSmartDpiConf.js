@@ -191,7 +191,7 @@ function initParameters() {
   else{
     toggleMode.checked = true;
   }
-  if (window.currentGatewayInfo.isEnabled == 0){
+  if (window.currentGatewayInfo.isEnabled === 0){
     toggleEnableDisable.checked = false;
   }
   else{
