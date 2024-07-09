@@ -217,6 +217,7 @@ function onCommitReport(value) {
         alert('fail to get Congiguration Data of Smart Dpi');
       }
       else{
+        updateLocalStorge()
         initParameters()
       }
     }
