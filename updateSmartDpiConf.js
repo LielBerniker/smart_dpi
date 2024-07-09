@@ -67,7 +67,7 @@ function getConfigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       const jsonStatusDescription = JSON.parse(statusDescription);
-      window.currentGatewayInfo.isEnabled = (jsonStatusDescription.enabled.toLowerCase() === 'true') ? true : false;
+      window.currentGatewayInfo.isEnabled = Number(jsonStatusDescription.enabled);
       window.currentGatewayInfo.actionMode = jsonStatusDescription.state;
       window.currentGatewayInfo.threshold = Number(jsonStatusDescription.threshold);
       console.log('successfully got gateway configuration information'); 
@@ -154,7 +154,7 @@ function initParameters() {
 
   // Save button action
   document.getElementById('saveButton').addEventListener('click', function () {
-    const isEnabled = toggleEnableDisable.checked;
+    const isEnabled = toggleEnableDisable.checked ? 1 : 0;
     const actionMode = toggleAction.checked ? 'Prevent' : 'Monitor';
     const threshold = thresholdInput.value;
 
@@ -177,7 +177,7 @@ function initParameters() {
   else{
     toggleAction.checked = true;
   }
-  if (!window.currentGatewayInfo.isEnabled){
+  if (window.currentGatewayInfo.isEnabled == 0){
     toggleEnableDisable.checked = false;
   }
   else{
@@ -237,7 +237,7 @@ function onContext(obj) {
   }else{
     smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
     const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
-    window.currentGatewayInfo.isEnabled = parsedSmartDpiInformation.enabled;
+    window.currentGatewayInfo.isEnabled = Number(parsedSmartDpiInformation.enabled);
     window.currentGatewayInfo.actionMode = parsedSmartDpiInformation.state;
     window.currentGatewayInfo.threshold = Number(parsedSmartDpiInformation.threshold);
     initParameters();
