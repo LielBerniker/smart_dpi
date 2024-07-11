@@ -73,9 +73,8 @@
   height: 0;
 }
 
-.slider {
+.slider,.sliderDis{
   position: absolute;
-  cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
@@ -85,7 +84,11 @@
   border-radius: 24px;
 }
 
-.slider:before {
+.slider{
+  cursor: pointer;
+}
+
+.slider:before,.sliderDis:before {
   position: absolute;
   content: "";
   height: 18px;

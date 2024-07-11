@@ -16,6 +16,9 @@ const monitorStr = "Monitor"
 const actionStr = "Action"
 const enabledStr = "Enabled"
 const disabledStr = "Disabled"
+const sliderClass = "slider"
+const DisableSliderClass = "sliderDis"
+
 var smartDpiInformationKey = "smart_dpi_information";
 
 window.gatewayName;
@@ -149,14 +152,17 @@ function initParameters() {
   const stateEnableDisable = document.getElementById("stateEnableDisable");
   const toggleMode = document.getElementById("toggleMode");
   const stateMode = document.getElementById("stateMode");
+  const sliderMode = document.getElementById("SliderMode");
 
   // Initial state
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
   if (!toggleEnableDisable.checked) {
     toggleMode.checked =false;
     toggleMode.disabled = true;
+    sliderMode.className = DisableSliderClass;
   }else{
     toggleMode.disabled = false;
+    sliderMode.className = sliderClass;
   }
   stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
 
@@ -166,6 +172,10 @@ function initParameters() {
     if (!toggleEnableDisable.checked) {
       toggleMode.checked =false;
       toggleMode.disabled = true;
+      sliderMode.className = DisableSliderClass;
+    }else{
+      toggleMode.disabled = false;
+      sliderMode.className = sliderClass;
     }
 
   });
@@ -208,6 +218,7 @@ function initParameters() {
     toggleMode.checked =false;
     toggleMode.disabled = true;
     stateMode.textContent = monitorStr
+    sliderMode.className = DisableSliderClass;
   }
   else{
     toggleEnableDisable.checked = true;
