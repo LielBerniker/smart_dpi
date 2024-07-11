@@ -152,11 +152,22 @@ function initParameters() {
 
   // Initial state
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+  if (!toggleEnableDisable.checked) {
+    toggleMode.checked =false;
+    toggleMode.disabled = true;
+  }else{
+    toggleMode.disabled = false;
+  }
   stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
 
   // Toggle for Enable/Disable
   toggleEnableDisable.addEventListener("change", function() {
     stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+    if (!toggleEnableDisable.checked) {
+      toggleMode.checked =false;
+      toggleMode.disabled = true;
+    }
+
   });
 
   // Toggle for Monitor/Prevent
@@ -185,6 +196,7 @@ function initParameters() {
 
   thresholdInput.value = window.currentGatewayInfo.threshold;
   stateMode.textContent = window.currentGatewayInfo.mode;
+  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
   if (window.currentGatewayInfo.mode.toLowerCase() === "monitor"){
     toggleMode.checked = false;
   }
@@ -193,11 +205,14 @@ function initParameters() {
   }
   if (window.currentGatewayInfo.isEnabled === 0){
     toggleEnableDisable.checked = false;
+    toggleMode.checked =false;
+    toggleMode.disabled = true;
+    stateMode.textContent = monitorStr
   }
   else{
     toggleEnableDisable.checked = true;
   }
-  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+  
 }
 
 
