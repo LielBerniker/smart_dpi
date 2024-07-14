@@ -208,7 +208,6 @@ function initParameters() {
 
   thresholdInput.value = window.currentGatewayInfo.threshold;
   stateMode.textContent = window.currentGatewayInfo.mode;
-  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
   if (window.currentGatewayInfo.mode.toLowerCase() === "monitor"){
     toggleMode.checked = false;
   }
@@ -227,7 +226,7 @@ function initParameters() {
     toggleMode.disabled = false;
     sliderMode.className = sliderClass;
   }
-  
+  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
 }
 
 
