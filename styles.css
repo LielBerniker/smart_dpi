@@ -153,3 +153,33 @@ button:hover {
 #stateEnableDisable,#stateMode {
   width: 40px;
 }
+
+.ul-protection-list {
+  list-style-type: none; /* Remove bullets */
+  padding: 0;
+  margin: 0;
+}
+
+.li-protection {
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #e9e9e9;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.timestamp {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #fff;
+  background-color: #ee0055; /* Pink color similar to Check Point logo */
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.protection-name {
+  color: #333;
+}

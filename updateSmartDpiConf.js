@@ -35,6 +35,7 @@ function addListItem(protectionName, currentDateTime) {
 
   // Create a new list item
   const li = document.createElement('li');
+  li.className = 'li-protection';
 
   // Create a span for the timestamp
   const timestampSpan = document.createElement('span');
@@ -44,7 +45,7 @@ function addListItem(protectionName, currentDateTime) {
   // Create a span for the protection name
   const protectionNameSpan = document.createElement('span');
   protectionNameSpan.className = 'protection-name';
-  protectionNameSpan.textContent = protectionName;
+  protectionNameSpan.textContent = " " + protectionName;
 
   // Append the timestamp and protection name to the list item
   li.appendChild(timestampSpan);
@@ -252,8 +253,12 @@ function initParameters() {
   }
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
 
-  addListItem('protection a', '2024-07-11 14:45:30');
-  addListItem('protection b', '2024-07-14 14:45:30');
+  addListItem('protection a', '2024-07-14 14:45:30');
+  addListItem('protection b', '2024-06-14 14:45:30');
+  addListItem('protection c', '2024-05-11 14:45:30');
+  addListItem('protection d', '2024-03-14 14:45:30');
+  addListItem('protection e', '2024-02-11 14:45:30');
+  addListItem('protection f', '2024-01-14 14:45:30');
 }
 
 
