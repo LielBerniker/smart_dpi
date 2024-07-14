@@ -48,7 +48,7 @@ class HtmlElements {
   EnableDisableUpdate() {
       // Initial state
     this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
-    this.modeAcordingToState(!toggleEnableDisable.checked)
+    this.modeAcordingToState(!this.toggleEnableDisable.checked)
     // Toggle for Enable/Disable
     this.toggleEnableDisable.addEventListener("change", function() {
       this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
@@ -74,7 +74,7 @@ class HtmlElements {
     else{
       this.toggleMode.checked = true;
     }
-    enabled = (isEnabled === 1) ? true : false;
+    let enabled = (isEnabled === 1) ? true : false;
     this.modeAcordingToState(enabled)
     this.toggleEnableDisable.checked = enabled
   }
