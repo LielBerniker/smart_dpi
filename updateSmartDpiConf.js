@@ -23,60 +23,60 @@ class GatewayConfigInfo {
 
 class HtmlElements {
   constructor() {
-    toggleEnableDisable = document.getElementById("toggleEnableDisable");
-    stateEnableDisable = document.getElementById("stateEnableDisable");
-    toggleMode = document.getElementById("toggleMode");
-    stateMode = document.getElementById("stateMode");
-    sliderMode = document.getElementById("SliderMode");
-    thresholdInput = document.getElementById('threshold');
+    this.toggleEnableDisable = document.getElementById("toggleEnableDisable");
+    this.stateEnableDisable = document.getElementById("stateEnableDisable");
+    this.toggleMode = document.getElementById("toggleMode");
+    this.stateMode = document.getElementById("stateMode");
+    this.sliderMode = document.getElementById("SliderMode");
+    this.thresholdInput = document.getElementById('threshold');
     EnableDisableUpdate()
     modeUpdate()
   }
 
   modeAcordingToState(enabled) {
     if (!enabled) {
-      toggleMode.checked =false;
-      toggleMode.disabled = true;
-      sliderMode.className = DisableSliderClass;
-      stateMode.textContent = monitorStr;
+      this.toggleMode.checked =false;
+      this.toggleMode.disabled = true;
+      this.sliderMode.className = DisableSliderClass;
+      this.stateMode.textContent = monitorStr;
     }else{
-      toggleMode.disabled = false;
-      sliderMode.className = sliderClass;
+      this.toggleMode.disabled = false;
+      this.sliderMode.className = sliderClass;
     }
   }
 
   EnableDisableUpdate() {
       // Initial state
-    stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+    this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
     modeAcordingToState(!toggleEnableDisable.checked)
     // Toggle for Enable/Disable
-    toggleEnableDisable.addEventListener("change", function() {
-      stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
-      modeAcordingToState(!toggleEnableDisable.checked)
+    this.toggleEnableDisable.addEventListener("change", function() {
+      this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
+      modeAcordingToState(!this.toggleEnableDisable.checked)
     });
   } 
 
   modeUpdate() {
-    stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
+    this.stateMode.textContent = this.toggleMode.checked ? actionStr : monitorStr;
     // Toggle for Monitor/Prevent
-    toggleMode.addEventListener("change", function() {
-      stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
+    this.toggleMode.addEventListener("change", function() {
+      this.stateMode.textContent = this.toggleMode.checked ? actionStr : monitorStr;
     });
   }
   
   UpdateAllElemetns(isEnabled, mode, threshold){
-    thresholdInput.value = threshold;
-    stateMode.textContent = mode;
-    stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+    this.thresholdInput.value = threshold;
+    this.stateMode.textContent = mode;
+    this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
     if (mode.toLowerCase() === "monitor"){
-      toggleMode.checked = false;
+      this.toggleMode.checked = false;
     }
     else{
-      toggleMode.checked = true;
+      this.toggleMode.checked = true;
     }
     enabled = (isEnabled === 1) ? true : false;
     modeAcordingToState(enabled)
-    toggleEnableDisable.checked = enabled
+    this.toggleEnableDisable.checked = enabled
   }
 
 }
