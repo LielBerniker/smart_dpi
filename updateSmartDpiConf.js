@@ -224,6 +224,7 @@ function initParameters() {
   }
   else{
     toggleEnableDisable.checked = true;
+    sliderMode.className = sliderClass;
   }
   
 }
