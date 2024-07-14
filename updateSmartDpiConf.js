@@ -1,11 +1,5 @@
 
-class GatewayConfigInfo {
-    constructor(isEnabled, mode, threshold) {
-        this.isEnabled = isEnabled;
-        this.mode = mode;
-        this.threshold = threshold;
-    }  
-}
+
 
 const smartDpiConfigUpdate = "python3 $FWDIR/bin/smart_dpi_config_update.pyc";
 const smartDpiConfigReport = "python3 $FWDIR/bin/smart_dpi_config_report.pyc";
@@ -18,6 +12,75 @@ const enabledStr = "Enabled"
 const disabledStr = "Disabled"
 const sliderClass = "slider"
 const DisableSliderClass = "sliderDis"
+
+class GatewayConfigInfo {
+    constructor(isEnabled, mode, threshold) {
+        this.isEnabled = isEnabled;
+        this.mode = mode;
+        this.threshold = threshold;
+    }  
+}
+
+class HtmlElements {
+  constructor() {
+    toggleEnableDisable = document.getElementById("toggleEnableDisable");
+    stateEnableDisable = document.getElementById("stateEnableDisable");
+    toggleMode = document.getElementById("toggleMode");
+    stateMode = document.getElementById("stateMode");
+    sliderMode = document.getElementById("SliderMode");
+    thresholdInput = document.getElementById('threshold');
+    EnableDisableUpdate()
+    modeUpdate()
+  }
+
+  modeAcordingToState(enabled) {
+    if (!enabled) {
+      toggleMode.checked =false;
+      toggleMode.disabled = true;
+      sliderMode.className = DisableSliderClass;
+      stateMode.textContent = monitorStr;
+    }else{
+      toggleMode.disabled = false;
+      sliderMode.className = sliderClass;
+    }
+  }
+
+  EnableDisableUpdate() {
+      // Initial state
+    stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+    modeAcordingToState(!toggleEnableDisable.checked)
+    // Toggle for Enable/Disable
+    toggleEnableDisable.addEventListener("change", function() {
+      stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+      modeAcordingToState(!toggleEnableDisable.checked)
+    });
+  } 
+
+  modeUpdate() {
+    stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
+    // Toggle for Monitor/Prevent
+    toggleMode.addEventListener("change", function() {
+      stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
+    });
+  }
+  
+  UpdateAllElemetns(isEnabled, mode, threshold){
+    thresholdInput.value = threshold;
+    stateMode.textContent = mode;
+    stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+    if (mode.toLowerCase() === "monitor"){
+      toggleMode.checked = false;
+    }
+    else{
+      toggleMode.checked = true;
+    }
+    enabled = (isEnabled === 1) ? true : false;
+    modeAcordingToState(enabled)
+    toggleEnableDisable.checked = enabled
+  }
+
+}
+
 
 var smartDpiInformationKey = "smart_dpi_information";
 
@@ -148,50 +211,14 @@ function updateLocalStorge() {
 
 function initParameters() {
   removeLoader()
-  const toggleEnableDisable = document.getElementById("toggleEnableDisable");
-  const stateEnableDisable = document.getElementById("stateEnableDisable");
-  const toggleMode = document.getElementById("toggleMode");
-  const stateMode = document.getElementById("stateMode");
-  const sliderMode = document.getElementById("SliderMode");
-
-  // Initial state
-  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
-  if (!toggleEnableDisable.checked) {
-    toggleMode.checked =false;
-    toggleMode.disabled = true;
-    sliderMode.className = DisableSliderClass;
-  }else{
-    toggleMode.disabled = false;
-    sliderMode.className = sliderClass;
-  }
-  stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
-
-  // Toggle for Enable/Disable
-  toggleEnableDisable.addEventListener("change", function() {
-    stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
-    if (!toggleEnableDisable.checked) {
-      toggleMode.checked =false;
-      toggleMode.disabled = true;
-      sliderMode.className = DisableSliderClass;
-    }else{
-      toggleMode.disabled = false;
-      sliderMode.className = sliderClass;
-    }
-
-  });
-
-  // Toggle for Monitor/Prevent
-  toggleMode.addEventListener("change", function() {
-    stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
-  });
-
-  const thresholdInput = document.getElementById('threshold');
+  elementsInfo = new HtmlElements();
+  elementsInfo.UpdateAllElemetns(window.currentGatewayInfo.isEnabled, window.currentGatewayInfo.mode, window.currentGatewayInfo.threshold)
 
   // Save button action
   document.getElementById('saveButton').addEventListener('click', function () {
-    const isEnabled = toggleEnableDisable.checked ? 1 : 0;
-    const mode = toggleMode.checked ? actionStr : monitorStr;
-    const threshold = thresholdInput.value;
+    const isEnabled = elementsInfo.toggleEnableDisable.checked ? 1 : 0;
+    const mode = elementsInfo.toggleMode.checked ? actionStr : monitorStr;
+    const threshold = elementsInfo.thresholdInput.value;
 
     if (threshold < 1 || threshold > 100) {
         alert('Please enter a valid threshold percentage between 1 and 100.');
@@ -203,26 +230,6 @@ function initParameters() {
     runUpdateConfigOnGW();
 
   });
-
-  thresholdInput.value = window.currentGatewayInfo.threshold;
-  stateMode.textContent = window.currentGatewayInfo.mode;
-  stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
-  if (window.currentGatewayInfo.mode.toLowerCase() === "monitor"){
-    toggleMode.checked = false;
-  }
-  else{
-    toggleMode.checked = true;
-  }
-  if (window.currentGatewayInfo.isEnabled === 0){
-    toggleEnableDisable.checked = false;
-    toggleMode.checked =false;
-    toggleMode.disabled = true;
-    stateMode.textContent = monitorStr
-    sliderMode.className = DisableSliderClass;
-  }
-  else{
-    toggleEnableDisable.checked = true;
-  }
   
 }
 
@@ -285,7 +292,6 @@ function onContext(obj) {
   }
 
 }
-
 
 /*
  * Send API request 'get-context' (get-context return JSON object of extension location context).
