@@ -29,8 +29,8 @@ class HtmlElements {
     this.stateMode = document.getElementById("stateMode");
     this.sliderMode = document.getElementById("SliderMode");
     this.thresholdInput = document.getElementById('threshold');
-    EnableDisableUpdate()
-    modeUpdate()
+    this.EnableDisableUpdate()
+    this.modeUpdate()
   }
 
   modeAcordingToState(enabled) {
@@ -48,11 +48,11 @@ class HtmlElements {
   EnableDisableUpdate() {
       // Initial state
     this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
-    modeAcordingToState(!toggleEnableDisable.checked)
+    this.modeAcordingToState(!toggleEnableDisable.checked)
     // Toggle for Enable/Disable
     this.toggleEnableDisable.addEventListener("change", function() {
       this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
-      modeAcordingToState(!this.toggleEnableDisable.checked)
+      this.modeAcordingToState(!this.toggleEnableDisable.checked)
     });
   } 
 
@@ -75,7 +75,7 @@ class HtmlElements {
       this.toggleMode.checked = true;
     }
     enabled = (isEnabled === 1) ? true : false;
-    modeAcordingToState(enabled)
+    this.modeAcordingToState(enabled)
     this.toggleEnableDisable.checked = enabled
   }
 
