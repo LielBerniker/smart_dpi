@@ -50,7 +50,7 @@ class HtmlElements {
     this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
     this.modeAcordingToState(!this.toggleEnableDisable.checked)
     // Toggle for Enable/Disable
-    this.toggleEnableDisable.addEventListener("change", function() {
+    this.toggleEnableDisable.addEventListener("change", () => {
       this.stateEnableDisable.textContent = this.toggleEnableDisable.checked ? enabledStr : disabledStr;
       this.modeAcordingToState(!this.toggleEnableDisable.checked)
     });
@@ -59,7 +59,7 @@ class HtmlElements {
   modeUpdate() {
     this.stateMode.textContent = this.toggleMode.checked ? actionStr : monitorStr;
     // Toggle for Monitor/Prevent
-    this.toggleMode.addEventListener("change", function() {
+    this.toggleMode.addEventListener("change", () => {
       this.stateMode.textContent = this.toggleMode.checked ? actionStr : monitorStr;
     });
   }
