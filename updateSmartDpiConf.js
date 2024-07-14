@@ -39,11 +39,16 @@ function addListItem(protectionName, currentDateTime) {
   // Create a span for the timestamp
   const timestampSpan = document.createElement('span');
   timestampSpan.className = 'timestamp';
-  timestampSpan.textContent = formattedDateTime;
+  timestampSpan.textContent = currentDateTime;
 
-  // Append the timestamp and name to the list item
-  li.appendChild(currentDateTime);
-  li.appendChild(document.createTextNode(protectionName));
+  // Create a span for the protection name
+  const protectionNameSpan = document.createElement('span');
+  protectionNameSpan.className = 'protection-name';
+  protectionNameSpan.textContent = protectionName;
+
+  // Append the timestamp and protection name to the list item
+  li.appendChild(timestampSpan);
+  li.appendChild(protectionNameSpan);
 
   // Append the list item to the unordered list
   document.getElementById('protectionsList').appendChild(li);
