@@ -31,6 +31,25 @@ function onCommitfetchLocal(value) {
   }
 }
 
+function addListItem(protectionName, currentDateTime) {
+
+  // Create a new list item
+  const li = document.createElement('li');
+
+  // Create a span for the timestamp
+  const timestampSpan = document.createElement('span');
+  timestampSpan.className = 'timestamp';
+  timestampSpan.textContent = formattedDateTime;
+
+  // Append the timestamp and name to the list item
+  li.appendChild(currentDateTime);
+  li.appendChild(document.createTextNode(protectionName));
+
+  // Append the list item to the unordered list
+  document.getElementById('protectionsList').appendChild(li);
+}
+
+
 function runLocalFetchOnGW() {
 
   const fetchLocalCli = "fw fetch local"
@@ -227,6 +246,9 @@ function initParameters() {
     sliderMode.className = sliderClass;
   }
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+
+  addListItem('protection a', '2024-07-11 14:45:30');
+  addListItem('protection b', '2024-07-14 14:45:30');
 }
 
 
