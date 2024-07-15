@@ -116,10 +116,12 @@ function getConfigurationData(item) {
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
     const jsonData = JSON.parse(jsonString);
     if (jsonData.tasks && jsonData.tasks.length > 0) {
-      statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
-      const jsonStatusDescription = JSON.parse(statusDescription);
-      console.log(jsonStatusDescription)
-      currentMode = Number(jsonStatusDescription.mode);
+      statusDescription = jsonData.tasks[0]["task-details"][0].responseMessage;
+      const decodedMessage = atob(responseMessage);
+      const parsedResponse = JSON.parse(decodedMessage);
+  
+      console.log(parsedResponse)
+      currentMode = Number(parsedResponse.mode);
       switch(currentMode) {
         case actionMode:
           window.currentGatewayInfo.mode = actionStr
@@ -134,8 +136,8 @@ function getConfigurationData(item) {
           window.currentGatewayInfo.mode = monitorStr
           window.currentGatewayInfo.isEnabled = 0
       }
-      window.currentGatewayInfo.threshold = Number(jsonStatusDescription.threshold);
-      updateProtections(jsonStatusDescription.protections)
+      window.currentGatewayInfo.threshold = Number(parsedResponse.threshold);
+      updateProtections(parsedResponse.protections)
       console.log('successfully got gateway configuration information'); 
       return true;
     } else {
