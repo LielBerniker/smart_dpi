@@ -24,6 +24,10 @@ const enabledStr = "Enabled"
 const disabledStr = "Disabled"
 const sliderClass = "slider"
 const DisableSliderClass = "sliderDis"
+const preventSte = "prevent"
+const detectStr = "detect"
+const disabledProtections = "Disabled Protections"
+const recommendedProtections = "Recommended Protections"
 
 var smartDpiInformationKey = "smart_dpi_information";
 
@@ -102,10 +106,11 @@ function isTaskSucceeded(item) {
   return false;
 }
 
-function updateProtections(protectionsArray) {
+function updateProtections(protectionsArray, currentModey) {
   for (const protectionConf of protectionsArray) {
     console.log(protectionConf.protection_name)
     console.log(protectionConf.time)
+    if (protectionConf.mode === currentModey)
     const protectionInfo = new ProtectionInfo(protectionConf.protection_name, protectionConf.time);
     window.currentGatewayInfo.protections.push(protectionInfo);
   }
@@ -119,17 +124,19 @@ function getConfigurationData(item) {
       responseMessage = jsonData.tasks[0]["task-details"][0].responseMessage;
       const decodedMessage = atob(responseMessage);
       const parsedResponse = JSON.parse(decodedMessage);
-  
+      let currentMode = ""
       console.log(parsedResponse)
       currentMode = Number(parsedResponse.mode);
       switch(currentMode) {
         case actionMode:
           window.currentGatewayInfo.mode = actionStr
           window.currentGatewayInfo.isEnabled = 1
+          currentMode = preventSte
           break;
         case monitordMode:
           window.currentGatewayInfo.mode = monitorStr
           window.currentGatewayInfo.isEnabled = 1
+          currentMode = detectStr
           break;
 
         default:
@@ -137,7 +144,8 @@ function getConfigurationData(item) {
           window.currentGatewayInfo.isEnabled = 0
       }
       window.currentGatewayInfo.threshold = Number(parsedResponse.threshold);
-      updateProtections(parsedResponse.protections)
+      
+      updateProtections(parsedResponse.protections, currentMode)
       console.log('successfully got gateway configuration information'); 
       return true;
     } else {
@@ -198,6 +206,7 @@ function initParameters() {
   const toggleMode = document.getElementById("toggleMode");
   const stateMode = document.getElementById("stateMode");
   const sliderMode = document.getElementById("SliderMode");
+  const listHeader = document.getElementById("headerProtectionList");
 
   // Initial state
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
@@ -220,16 +229,24 @@ function initParameters() {
       toggleMode.disabled = true;
       sliderMode.className = DisableSliderClass;
       stateMode.textContent = monitorStr;
+      listHeader.textContent = "";
     }else{
       toggleMode.disabled = false;
       sliderMode.className = sliderClass;
+      listHeader.textContent = recommendedProtections;
     }
 
   });
 
   // Toggle for Monitor/Prevent
   toggleMode.addEventListener("change", function() {
-    stateMode.textContent = toggleMode.checked ? actionStr : monitorStr;
+    if (toggleMode.checked){
+      stateMode.textContent = actionStr
+      listHeader.textContent = disabledProtections;
+    } else{
+      stateMode.textContent = monitorStr
+      listHeader.textContent = recommendedProtections;
+    } 
   });
 
   const thresholdInput = document.getElementById('threshold');
@@ -272,6 +289,12 @@ function initParameters() {
     sliderMode.className = sliderClass;
   }
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
+  if (toggleEnableDisable.checked && stateMode.textContent === monitorStr){
+    listHeader.textContent = recommendedProtections;
+  }
+  else if (toggleEnableDisable.checked && stateMode.textContent === actionStr){
+    listHeader.textContent = disabledProtections;
+  }
 
   addListItems();
 
