@@ -1,9 +1,10 @@
-class ProtectionInfo {
+class ProtectionInformation {
   constructor(name, time) {
       this.name = name;
       this.time = time;
   }  
 }
+
 class GatewayConfigInfo {
     constructor(isEnabled, mode, threshold) {
         this.isEnabled = isEnabled;
@@ -106,13 +107,15 @@ function isTaskSucceeded(item) {
   return false;
 }
 
-function updateProtections(protectionsArray, currentModey) {
+function updateProtections(protectionsArray, currentMode) {
   for (protectionConf of protectionsArray) {
     console.log(protectionConf.protection_name)
     console.log(protectionConf.time)
-    if (protectionConf.mode === currentModey)
-    protectionInfo = new ProtectionInfo(protectionConf.protection_name, protectionConf.time);
-    window.currentGatewayInfo.protections.push(protectionInfo);
+    if (protectionConf.mode === currentMode){
+      protectionInfo = new ProtectionInformation(protectionConf.protection_name, protectionConf.time);
+      window.currentGatewayInfo.protections.push(protectionInfo);
+    }
+
   }
 }
 
