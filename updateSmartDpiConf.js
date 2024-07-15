@@ -324,14 +324,14 @@ function onContext(obj) {
     // send API request
     const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${window.gatewayName}" --format json`;
     smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
-  }else{
-    smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
-    const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
-    window.currentGatewayInfo.isEnabled = Number(parsedSmartDpiInformation.enabled);
-    window.currentGatewayInfo.mode = parsedSmartDpiInformation.state;
-    window.currentGatewayInfo.threshold = Number(parsedSmartDpiInformation.threshold);
-    initParameters();
-  }
+  // }else{
+  //   smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
+  //   const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
+  //   window.currentGatewayInfo.isEnabled = Number(parsedSmartDpiInformation.enabled);
+  //   window.currentGatewayInfo.mode = parsedSmartDpiInformation.state;
+  //   window.currentGatewayInfo.threshold = Number(parsedSmartDpiInformation.threshold);
+  //   initParameters();
+  // }
 
 }
 
