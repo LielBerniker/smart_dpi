@@ -236,7 +236,6 @@ function initParameters() {
     }else{
       toggleMode.disabled = false;
       sliderMode.className = sliderClass;
-      listHeader.textContent = recommendedProtections;
     }
 
   });
@@ -248,7 +247,6 @@ function initParameters() {
       listHeader.textContent = disabledProtections;
     } else{
       stateMode.textContent = monitorStr
-      listHeader.textContent = recommendedProtections;
     } 
   });
 
