@@ -334,7 +334,7 @@ function onContext(obj) {
   //   window.currentGatewayInfo.threshold = Number(parsedSmartDpiInformation.threshold);
   //   initParameters();
   // }
-
+  }
 }
 
 
