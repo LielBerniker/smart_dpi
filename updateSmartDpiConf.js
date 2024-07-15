@@ -107,11 +107,11 @@ function isTaskSucceeded(item) {
 }
 
 function updateProtections(protectionsArray, currentModey) {
-  for (const protectionConf of protectionsArray) {
+  for (protectionConf of protectionsArray) {
     console.log(protectionConf.protection_name)
     console.log(protectionConf.time)
     if (protectionConf.mode === currentModey)
-    const protectionInfo = new ProtectionInfo(protectionConf.protection_name, protectionConf.time);
+    protectionInfo = new ProtectionInfo(protectionConf.protection_name, protectionConf.time);
     window.currentGatewayInfo.protections.push(protectionInfo);
   }
 }
