@@ -344,11 +344,13 @@ function onContext(obj) {
   window.gatewayName = obj.event.objects[0]["name"];
   smartDpiInformationKey += "_" + window.gatewayName;
   console.log(smartDpiInformationKey);
-  if (!localStorage.hasOwnProperty(smartDpiInformationKey))
-  {
-    // send API request
-    const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${window.gatewayName}" --format json`;
-    smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
+  const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${window.gatewayName}" --format json`;
+  smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
+  // if (!localStorage.hasOwnProperty(smartDpiInformationKey))
+  // {
+  //   // send API request
+  //   const mgmtCli = `run-script script-name "smart_dpi_config_report" script "${smartDpiConfigReport}" targets.1 "${window.gatewayName}" --format json`;
+  //   smxProxy.sendRequest("request-commit", {"commands" : [mgmtCli]}, "onCommitReport");
   // }else{
   //   smartDpiInformation = localStorage.getItem(smartDpiInformationKey);
   //   const parsedSmartDpiInformation = JSON.parse(smartDpiInformation);
@@ -357,7 +359,7 @@ function onContext(obj) {
   //   window.currentGatewayInfo.threshold = Number(parsedSmartDpiInformation.threshold);
   //   initParameters();
   // }
-  }
+  // }
 }
 
 
