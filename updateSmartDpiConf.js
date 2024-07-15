@@ -116,9 +116,10 @@ function getConfigurationData(item) {
     const jsonString = item.substring(item.indexOf('{'), item.lastIndexOf('}') + 1);
     const jsonData = JSON.parse(jsonString);
     if (jsonData.tasks && jsonData.tasks.length > 0) {
-      statusDescription = jsonData.tasks[0]["task-details"][0].responseMessage;
-      const decodedMessage = atob(responseMessage);
-      const parsedResponse = JSON.parse(decodedMessage);
+      statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
+      // Remove unnecessary characters at the beginning and end (`, ` and `}`)
+      const trimmedStatusDescription = statusDescriptionString.slice(2, -1);
+      const parsedResponse = JSON.parse(trimmedStatusDescription);
   
       console.log(parsedResponse)
       currentMode = Number(parsedResponse.mode);
