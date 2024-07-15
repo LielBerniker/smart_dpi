@@ -1,9 +1,15 @@
-
+class ProtectionInfo {
+  constructor(name, time) {
+      this.name = name;
+      this.time = time;
+  }  
+}
 class GatewayConfigInfo {
     constructor(isEnabled, mode, threshold) {
         this.isEnabled = isEnabled;
         this.mode = mode;
         this.threshold = threshold;
+        this.protections = []
     }  
 }
 
@@ -31,8 +37,10 @@ function onCommitfetchLocal(value) {
   }
 }
 
-function addListItem(protectionName, currentDateTime) {
+function addListItems() {
 
+  for (const protectionInfo of window.currentGatewayInfo.protections) {
+    console.log(protectionInfo)
   // Create a new list item
   const li = document.createElement('li');
   li.className = 'li-protection';
@@ -40,12 +48,12 @@ function addListItem(protectionName, currentDateTime) {
   // Create a span for the timestamp
   const timestampSpan = document.createElement('span');
   timestampSpan.className = 'timestamp';
-  timestampSpan.textContent = currentDateTime;
+  timestampSpan.textContent = protectionInfo.time;
 
   // Create a span for the protection name
   const protectionNameSpan = document.createElement('span');
   protectionNameSpan.className = 'protection-name';
-  protectionNameSpan.textContent = protectionName;
+  protectionNameSpan.textContent = protectionInfo.name;
 
   // Append the timestamp and protection name to the list item
   li.appendChild(timestampSpan);
@@ -53,8 +61,8 @@ function addListItem(protectionName, currentDateTime) {
 
   // Append the list item to the unordered list
   document.getElementById('protectionsList').appendChild(li);
+  }
 }
-
 
 function runLocalFetchOnGW() {
 
@@ -94,6 +102,14 @@ function isTaskSucceeded(item) {
   return false;
 }
 
+function updateProtections(protectionsArray) {
+  for (const protectionConf of protectionsArray) {
+    console.log(protectionConf.protection_name)
+    console.log(protectionConf.time)
+    const protectionInfo = new ProtectionInfo(protectionConf.protection_name, protectionConf.time);
+    window.currentGatewayInfo.pprotections.push(protectionInfo);
+  }
+}
 
 function getConfigurationData(item) {
   try {
@@ -102,6 +118,7 @@ function getConfigurationData(item) {
     if (jsonData.tasks && jsonData.tasks.length > 0) {
       statusDescription = jsonData.tasks[0]["task-details"][0].statusDescription;
       const jsonStatusDescription = JSON.parse(statusDescription);
+      console.log(jsonStatusDescription)
       currentMode = Number(jsonStatusDescription.mode);
       switch(currentMode) {
         case actionMode:
@@ -118,6 +135,7 @@ function getConfigurationData(item) {
           window.currentGatewayInfo.isEnabled = 0
       }
       window.currentGatewayInfo.threshold = Number(jsonStatusDescription.threshold);
+      updateProtections(jsonStatusDescription.protections)
       console.log('successfully got gateway configuration information'); 
       return true;
     } else {
@@ -253,12 +271,8 @@ function initParameters() {
   }
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
 
-  addListItem('protection a', '2024-07-14 14:45:30');
-  addListItem('protection b', '2024-06-14 14:45:30');
-  addListItem('protection c', '2024-05-11 14:45:30');
-  addListItem('protection d', '2024-03-14 14:45:30');
-  addListItem('protection e', '2024-02-11 14:45:30');
-  addListItem('protection f', '2024-01-14 14:45:30');
+  addListItems();
+
 }
 
 
