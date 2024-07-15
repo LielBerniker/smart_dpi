@@ -107,7 +107,7 @@ function updateProtections(protectionsArray) {
     console.log(protectionConf.protection_name)
     console.log(protectionConf.time)
     const protectionInfo = new ProtectionInfo(protectionConf.protection_name, protectionConf.time);
-    window.currentGatewayInfo.pprotections.push(protectionInfo);
+    window.currentGatewayInfo.protections.push(protectionInfo);
   }
 }
 
