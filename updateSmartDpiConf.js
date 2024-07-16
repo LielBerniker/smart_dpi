@@ -45,29 +45,19 @@ function onCommitfetchLocal(value) {
 }
 
 function addListItems() {
-
+  const protectionsList = document.getElementById('protectionsList');
   for (const protectionInfo of window.currentGatewayInfo.protections) {
     console.log(protectionInfo)
-    // Create a new list item
     const li = document.createElement('li');
     li.className = 'li-protection';
 
-    // Create a span for the timestamp
-    const timestampSpan = document.createElement('span');
-    timestampSpan.className = 'timestamp';
-    timestampSpan.textContent = protectionInfo.time;
-
-    // Create a span for the protection name
-    const protectionNameSpan = document.createElement('span');
-    protectionNameSpan.className = 'protection-name';
-    protectionNameSpan.textContent = protectionInfo.name;
-
-    // Append the timestamp and protection name to the list item
-    li.appendChild(timestampSpan);
-    li.appendChild(protectionNameSpan);
-
-    // Append the list item to the unordered list
-    document.getElementById('protectionsList').appendChild(li);
+    li.innerHTML = `
+      <span class="list-name">${protectionInfo.name}</span>
+      <span class="list-date">${protectionInfo.date}</span>
+      <span class="list-time">${protectionInfo.time}</span>
+      <span class="list-status">${protectionInfo.status}</span>
+    `;
+    protectionsList.appendChild(li);
   }
 }
 
