@@ -203,7 +203,7 @@ li.header-row {
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  background-color: darkblue; /* Dark blue background for header row */
+  background-color: #1f2a3d; /* Dark blue background for header row */
   color: white; /* White text color for better readability */
 }
 
