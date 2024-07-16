@@ -27,7 +27,6 @@
   padding: 20px;
   width: 400px;
   font-family: Arial, sans-serif;
-  border: 1px solid #2e3f58; 
 }
 
 
@@ -195,6 +194,7 @@ button:hover {
 ul.ul-protection-list {
   list-style-type: none;
   padding: 0;
+  border: 0.5px solid #2e3f58; 
 }
 
 li.header-row {
