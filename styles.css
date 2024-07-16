@@ -233,5 +233,6 @@ li .name {
 }
 
 .h2-protection-list {
-  margin: 5px 0; /* Adjust margins as needed */
+  margin: 5px 0; 
+  font-size: 1.5em;
 }
