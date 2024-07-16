@@ -10,9 +10,9 @@
   gap: 5px; /* Adds space between the containers */
 }
 
-.container {
+.container, .info-container {
   background-color: #fff;
-  padding: 20px;
+  padding: 0; /* Remove padding */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   width: 400px;
@@ -20,15 +20,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.info-container {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 400px;
-  font-family: Arial, sans-serif;
 }
 
 .info-container h2 {
