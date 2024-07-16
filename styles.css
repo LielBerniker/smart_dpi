@@ -167,6 +167,10 @@ button:hover {
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
+.ul-protection-list li span {
+  font-size: 12px;
+}
+
 li.header-row {
   font-weight: bold;
   display: flex;
@@ -175,7 +179,6 @@ li.header-row {
   border-bottom: 1px solid #ddd;
   background-color: #2e3f58; /* Dark blue background for header row */
   color: white; /* White text color for better readability */
-  font-size: 10px; /* Smaller font size */
 }
 
 li.header-row span {
@@ -201,7 +204,7 @@ li span {
   text-align: left;
 }
 
-li .name {
+li .list-name {
   flex: 2; /* Adjust the width of the name column if needed */
 }
 
