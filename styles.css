@@ -203,11 +203,13 @@ li.header-row {
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  background-color: darkblue; /* Dark blue background for header row */
+  color: white; /* White text color for better readability */
 }
 
 li.header-row span {
   flex: 1;
-  text-align: center;
+  text-align: left;
 }
 
 li.header-row .header-name {
