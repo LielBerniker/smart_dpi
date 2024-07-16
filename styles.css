@@ -28,7 +28,7 @@
   width: 400px;
   font-family: Arial, sans-serif;
   flex: 1;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 
@@ -163,6 +163,8 @@ button:hover {
   padding: 0;
   margin: 0;
   border: 0.5px solid #2e3f58; 
+  max-height: 100px; /* Set maximum height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 li.header-row {
