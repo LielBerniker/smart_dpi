@@ -6,8 +6,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 5px;
-  gap: 5px; /* Adds space between the containers */
+  padding: 3px;
+  gap: 3px; /* Adds space between the containers */
 }
 
 
