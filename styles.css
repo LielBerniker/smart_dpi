@@ -31,6 +31,13 @@
   overflow: hidden;
 }
 
+.configuration-heading {
+  background-color: #2e3f58; /* Blue background color */
+  color: white; /* White text color */
+  padding: 10px;
+  margin-bottom: 2x; /* Adjust margin as needed */
+  font-size: 1.2em;
+}
 
 .info-container h2 {
   margin-top: 0;
@@ -210,5 +217,5 @@ li .list-name {
 
 .h2-protection-list {
   margin: 5px 0; 
-  font-size: 1.0em;
+  font-size: 1.2em;
 }
