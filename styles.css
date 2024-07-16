@@ -173,7 +173,7 @@ li.header-row {
   border-bottom: 1px solid #ddd;
   background-color: #2e3f58; /* Dark blue background for header row */
   color: white; /* White text color for better readability */
-  font-size: 14px; /* Smaller font size */
+  font-size: 10px; /* Smaller font size */
 }
 
 li.header-row span {
@@ -196,7 +196,7 @@ li {
 
 li span {
   flex: 1;
-  text-align: center;
+  text-align: left;
 }
 
 li .name {
