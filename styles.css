@@ -191,3 +191,41 @@ button:hover {
   flex: 1;
   overflow-y: auto;
 }
+
+ul.ul-protection-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+li.header-row {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+li.header-row span {
+  flex: 1;
+  text-align: center;
+}
+
+li.header-row .header-name {
+  flex: 2; /* Adjust the width of the name column if needed */
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+li span {
+  flex: 1;
+  text-align: center;
+}
+
+li .name {
+  flex: 2; /* Adjust the width of the name column if needed */
+}

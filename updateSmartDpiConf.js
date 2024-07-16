@@ -1,7 +1,9 @@
 class ProtectionInformation {
-  constructor(name, time) {
+  constructor(name, time, date, status) {
       this.name = name;
       this.time = time;
+      this.date = date;
+      this.status = status;
   }  
 }
 
@@ -46,26 +48,26 @@ function addListItems() {
 
   for (const protectionInfo of window.currentGatewayInfo.protections) {
     console.log(protectionInfo)
-  // Create a new list item
-  const li = document.createElement('li');
-  li.className = 'li-protection';
+    // Create a new list item
+    const li = document.createElement('li');
+    li.className = 'li-protection';
 
-  // Create a span for the timestamp
-  const timestampSpan = document.createElement('span');
-  timestampSpan.className = 'timestamp';
-  timestampSpan.textContent = protectionInfo.time;
+    // Create a span for the timestamp
+    const timestampSpan = document.createElement('span');
+    timestampSpan.className = 'timestamp';
+    timestampSpan.textContent = protectionInfo.time;
 
-  // Create a span for the protection name
-  const protectionNameSpan = document.createElement('span');
-  protectionNameSpan.className = 'protection-name';
-  protectionNameSpan.textContent = protectionInfo.name;
+    // Create a span for the protection name
+    const protectionNameSpan = document.createElement('span');
+    protectionNameSpan.className = 'protection-name';
+    protectionNameSpan.textContent = protectionInfo.name;
 
-  // Append the timestamp and protection name to the list item
-  li.appendChild(timestampSpan);
-  li.appendChild(protectionNameSpan);
+    // Append the timestamp and protection name to the list item
+    li.appendChild(timestampSpan);
+    li.appendChild(protectionNameSpan);
 
-  // Append the list item to the unordered list
-  document.getElementById('protectionsList').appendChild(li);
+    // Append the list item to the unordered list
+    document.getElementById('protectionsList').appendChild(li);
   }
 }
 
@@ -107,15 +109,12 @@ function isTaskSucceeded(item) {
   return false;
 }
 
-function updateProtections(protectionsArray, currentMode) {
+function updateProtections(protectionsArray) {
   for (protectionConf of protectionsArray) {
     console.log(protectionConf.protection_name)
     console.log(protectionConf.time)
-    if (protectionConf.mode === currentMode){
-      protectionInfo = new ProtectionInformation(protectionConf.protection_name, protectionConf.time);
-      window.currentGatewayInfo.protections.push(protectionInfo);
-    }
-
+    protectionInfo = new ProtectionInformation(protectionConf.protection_name, protectionConf.time, protectionConf.date, protectionConf.status);
+    window.currentGatewayInfo.protections.push(protectionInfo);
   }
 }
 
@@ -148,7 +147,7 @@ function getConfigurationData(item) {
       }
       window.currentGatewayInfo.threshold = Number(parsedResponse.threshold);
       
-      updateProtections(parsedResponse.protections, currentMode)
+      updateProtections(parsedResponse.protections)
       console.log('successfully got gateway configuration information'); 
       return true;
     } else {
@@ -209,7 +208,6 @@ function initParameters() {
   const toggleMode = document.getElementById("toggleMode");
   const stateMode = document.getElementById("stateMode");
   const sliderMode = document.getElementById("SliderMode");
-  const listHeader = document.getElementById("headerProtectionList");
 
   // Initial state
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
@@ -290,12 +288,6 @@ function initParameters() {
     sliderMode.className = sliderClass;
   }
   stateEnableDisable.textContent = toggleEnableDisable.checked ? enabledStr : disabledStr;
-  if (toggleEnableDisable.checked && stateMode.textContent === monitorStr){
-    listHeader.textContent = recommendedProtections;
-  }
-  else if (toggleEnableDisable.checked && stateMode.textContent === actionStr){
-    listHeader.textContent = disabledProtections;
-  }
 
   addListItems();
 
