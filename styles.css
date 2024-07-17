@@ -13,6 +13,7 @@
 
 .form-container {
   background-color: #fff;
+  padding: 20px;
   width: 400px;
   font-family: Arial, sans-serif;
   display: flex;
@@ -28,7 +29,8 @@
   display: flex;
   flex-direction: column;
   align-items: center; 
-  border: 0.5px solid #2e3f58; 
+  border-top: 0.5px solid #2e3f58; 
+  border-bottom: 0.5px solid #2e3f58; 
 }
 
 .info-container {
