@@ -26,10 +26,7 @@
 
 .inner-form-container {
   background-color: #fff;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 20px;
   width: 400px;
   font-family: Arial, sans-serif;
   display: flex;
@@ -54,7 +51,8 @@
 .configuration-heading {
   background-color: #2e3f58; /* Blue background color */
   color: white; /* White text color */
-  padding: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
   text-align: center; /* Center align the heading */
   margin-bottom: 2x; /* Adjust margin as needed */
   font-size: 1.2em;
