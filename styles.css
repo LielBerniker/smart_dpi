@@ -6,7 +6,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
   gap: 3px; /* Adds space between the containers */
 }
 
@@ -51,8 +54,7 @@
 .configuration-heading {
   background-color: #2e3f58; /* Blue background color */
   color: white; /* White text color */
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 10px;
   text-align: center; /* Center align the heading */
   margin-bottom: 2x; /* Adjust margin as needed */
   font-size: 1.2em;
